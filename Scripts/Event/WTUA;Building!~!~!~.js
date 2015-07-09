@@ -1,1 +1,1 @@
-logDebug("EMSE script on a building record, really");
+logDebug("EMSE script on a building record, really, really, really!!!");
