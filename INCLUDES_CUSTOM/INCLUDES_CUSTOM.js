@@ -13,6 +13,8 @@ custom function declarations go here.   One function per file
 
 */
 function validateRequiredPlanningASI(requiredASIbyCaseType) {
+	logDebug(AInfo["Case Type"])
+	logDebug(requiredASIbyCaseType[""+AInfo["Case Type"]])
 	var thisASIlist = requiredASIbyCaseType[""+AInfo["Case Type"]]
 	if (typeof thisASIlist != "object") return true
 
