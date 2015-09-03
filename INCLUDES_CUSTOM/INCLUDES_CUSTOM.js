@@ -12,12 +12,17 @@ custom function declarations go here.   One function per file
 custom function declarations go here.   One function per file
 
 */
-function validateRequiredPlanningASI(requiredASIbyCaseType) {
-	logDebug(AInfo["Case Type"])
-	logDebug(requiredASIbyCaseType[""+AInfo["Case Type"]])
+function validateRequiredPlanningASI() {
+	var requiredASIbyCaseType = []
+	requiredASIbyCaseType["Planned Development"] = ["Public Hearing Ad Date","City Commission Action"]
+	requiredASIbyCaseType["Area Wide Rezoning"] = ["Public Hearing Ad Date","City Commission Action"]
+	requiredASIbyCaseType["Urban Renewal Plans"] = ["Public Hearing Ad Date","City Commission Action"]
+	// requiredASIbyCaseType["Urban/Strategy/Policy"] = ["City Commission Action"] 			//Case Type doesn't exist........
+	requiredASIbyCaseType["Zoning Code Text Amendment"] = ["Public Hearing Ad Date","City Commission Action"]
+	
 	var thisASIlist = requiredASIbyCaseType[""+AInfo["Case Type"]]
 	if (typeof thisASIlist != "object") return true
-
+	
 	var reqsNotMet = []
 	switch(""+wfTask) {
 		case "Hearing Scheduled":
@@ -37,7 +42,6 @@ function validateRequiredPlanningASI(requiredASIbyCaseType) {
 	}
 	logDebug(reqsNotMet)
 	if (reqsNotMet.length > 0) {
-		showMessage = true
 		logMessage("The Data Field"+ (reqsNotMet.length > 1? "s": "") + ": '" + reqsNotMet.join("', '") + "' " +(reqsNotMet.length > 1? "are": "is")+" required before updating the Workflow task "+wfTask+" to a status of "+wfStatus)
 		cancel = true
 	}
