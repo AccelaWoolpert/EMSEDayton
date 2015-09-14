@@ -3,6 +3,7 @@ if (inspType == "Initial Investigation") {
 	if (inspResult  == "In Violation") {
 		closeTask("Investigation", "In Violation", "Set by Script", "Set by Script")
 		updateAppStatus("In Violation", "Set by Script")
+		activateTask("Issue Notice")
 	}
 	else if (inspResult  == "No Violation") {
 		closeTask("Investigation", "No Violation", "Set by Script", "Set by Script")
