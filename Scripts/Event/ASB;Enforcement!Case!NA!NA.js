@@ -1,6 +1,6 @@
 
 //Script 46
-var capAddResult = aa.cap.getCapListByDetailAddress(AddressStreetName,AddressHouseNumber.toString(),AddressStreetSuffix,AddressZip,AddressStreetDirection,null);
+var capAddResult = aa.cap.getCapListByDetailAddress(AddressStreetName,parseInt(AddressHouseNumber),AddressStreetSuffix,AddressZip,AddressStreetDirection,null);
 if (capAddResult.getSuccess())	{ 
 	var capIdArray = capAddResult.getOutput()
 
