@@ -8,7 +8,7 @@ if (capAddResult.getSuccess())	{
 		var relcap = aa.cap.getCap(capIdArray[c].getCapID()).getOutput();
 		var reltype = relcap.getCapType().toString();
 		
-		logDebug(reltype +": " appTypeString)
+		logDebug(reltype +": " +appTypeString)
 		
 		if (reltype == appTypeString) {
 			if (matches(""+relcap.getCapStatus(), "Open", "Unassigned","Active")) {
