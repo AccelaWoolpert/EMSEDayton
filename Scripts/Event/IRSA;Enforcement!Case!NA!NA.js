@@ -21,7 +21,7 @@ if (inspType == "Initial Investigation") {
 try {
 	origDesc = workDescGet(capId)
 	today = new Date()
-	origDesc += "\r\n" + jsDateToASIDate(today) + " - " + comm
+	if (inspComment != null) origDesc += "\r\n" + jsDateToASIDate(today) + " - " + inspComment 
 	updateWorkDesc(origDesc)
 } catch(err) {
 	logDebug(err)
