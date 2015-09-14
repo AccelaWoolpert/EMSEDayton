@@ -21,7 +21,6 @@ if (capAddResult.getSuccess())	{
 }
 else {
 	logDebug("**ERROR: getting similar addresses: " + capAddResult.getErrorMessage());  
-	return false; 
 }
 
 
