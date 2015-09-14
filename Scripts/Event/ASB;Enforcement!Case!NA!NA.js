@@ -11,7 +11,7 @@ if (capAddResult.getSuccess())	{
 		logDebug(reltype +": " appTypeString)
 		
 		if (reltype == appTypeString) {
-			if (matches(""+relcap.getCapStatus(), "Open", "Unassigned")) {
+			if (matches(""+relcap.getCapStatus(), "Open", "Unassigned","Active")) {
 				cancel = true
 				showMessage = true
 				logMessage("Existing active "+ appTypeString + " record found at the same address, cannot create a duplicate.")
