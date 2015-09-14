@@ -1,6 +1,6 @@
 
 //Script 46
-var capAddResult = aa.cap.getCapListByDetailAddress(AddressStreetName,AddressHouseNumber,AddressStreetSuffix,AddressZip,AddressStreetDirection,null);
+var capAddResult = aa.cap.getCapListByDetailAddress(""+AddressStreetName,""+AddressHouseNumber,""+AddressStreetSuffix,""+AddressZip,""+AddressStreetDirection,null);
 if (capAddResult.getSuccess())	{ 
 	var capIdArray = capAddResult.getOutput()
 
@@ -22,5 +22,3 @@ if (capAddResult.getSuccess())	{
 else {
 	logDebug("**ERROR: getting similar addresses: " + capAddResult.getErrorMessage());  
 }
-
-
