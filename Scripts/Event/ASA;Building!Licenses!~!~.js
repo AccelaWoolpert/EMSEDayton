@@ -1,5 +1,5 @@
 //Script 4
-if (matches(appTypeArray[3], "Application", "Renewal") {
+if (matches(appTypeArray[3], "Application", "Renewal")) {
 	try{
 		fSched = aa.finance.getFeeScheduleByCapID(capId).getOutput()
 		if (AInfo["Select Number of Years for Registration"] == "1 Year")
