@@ -1,4 +1,4 @@
-/******* Testing *******/
+/******* Testing *******
 
 aa.env.setValue("appGroup","Building");
 aa.env.setValue("appTypeType","Licenses");
@@ -7,7 +7,7 @@ aa.env.setValue("appCategory","License");
 aa.env.setValue("appStatus","Active")
 aa.env.setValue("newStatus","About to Expire")
 
-//***********************/
+***********************/
 /*------------------------------------------------------------------------------------------------------/
 | Program: Batch Expiration.js  Trigger: Batch
 | Client: South Metro Fire
