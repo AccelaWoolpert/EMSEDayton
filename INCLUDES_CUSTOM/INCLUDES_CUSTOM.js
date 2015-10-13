@@ -43,7 +43,7 @@ function validateRequiredPlanningASI() {
 	logDebug(reqsNotMet)
 	if (reqsNotMet.length > 0) {
 		showMessage = true
-		logMessage("The Data Field"+ (reqsNotMet.length > 1? "s": "") + ": <font color='red'>" + reqsNotMet.join("</font> and <font color='red'>") + "</font> " +(reqsNotMet.length > 1? "are": "is")+" required before updating the Workflow task "+wfTask+" to a status of "+wfStatus)
+		logMessage("The Data Field"+ (reqsNotMet.length > 1? "s": "") + " <font color='red'>" + reqsNotMet.join("</font> and <font color='red'>") + "</font> " +(reqsNotMet.length > 1? "are": "is")+" required before updating the Workflow task "+wfTask+" to a status of "+wfStatus)
 		cancel = true
 	}
 }
