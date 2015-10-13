@@ -117,7 +117,7 @@ if (emailAddress.length)
 
 function mainProcess() {
 	//Batch Variables
-
+	var count = 0
 	var today = new Date();
 
 	//Batch Record Set
@@ -153,7 +153,7 @@ function mainProcess() {
 		tmpCapObj = aa.cap.getCap(capId)
 		altId = tmpCapObj.getSuccess() ? tmpCapObj.getOutput().getCapModel().getAltID() : null
 		
-		logDebug(altId)
+		logDebug("Checking record: " + altId + br)
 		
 		expDateASI = "null"
 		var appSpecInfoResult = aa.appSpecificInfo.getByCapID(capId);
@@ -177,9 +177,10 @@ function mainProcess() {
 				logDebug("Error checking the expiration date: " + expDateASI + " for record: " + altId + ". Error Message: " + err)
 			}
 			if (today >= expDate) {
-				updateAppStatus(newStatus,"Set by Script")	
+				updateAppStatus(newStatus,"Set by Script")
+				count++
 			}
 		}
 	}
-	logDebug("Batch Results Summary")
+	logDebug(count + " Records updated by the batch script.")
 }
