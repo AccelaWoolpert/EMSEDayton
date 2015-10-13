@@ -14,7 +14,7 @@ aa.env.setValue("newStatus","Expired")
 |
 | Frequency: Annually on January 31 (31 days after to December 31)
 |
-| Desc: This batch script sets the record status from 'Active' to 'About to Expire'
+| Desc: This batch script sets the record status when the ASI field "Permit Expiration Date" is today or in the past
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
