@@ -169,7 +169,7 @@ function mainProcess() {
 		else
 			logDebug( "**ERROR: getting app specific info for Cap : " + appSpecInfoResult.getErrorMessage()) 
 
-		logDebug("Checking record: " + altId + "; Expires: " + expDateASI + br)
+		logDebug(br + "Checking record: " + altId + "; Expires: " + expDateASI )
 		
 		if (!matches(expDateASI,"null","undefined")) {
 			var expDate = new Date(dateAdd(null,1))
