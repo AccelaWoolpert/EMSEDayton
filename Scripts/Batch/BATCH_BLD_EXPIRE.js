@@ -6,6 +6,7 @@ aa.env.setValue("appSubtype","*");
 aa.env.setValue("appCategory","*");
 aa.env.setValue("appStatus","Issued")
 aa.env.setValue("newStatus","Expired")
+aa.env.setValue("expirationASI","Permit Expiration Date")
 
 ***********************/
 /*------------------------------------------------------------------------------------------------------/
@@ -73,6 +74,7 @@ var appSubtype = getParam("appSubtype");						//   app subtype to process {NA}
 var appCategory = getParam("appCategory");						//   app category to process {NA}
 var appStatus = getParam("appStatus");
 var newStatus = getParam("newStatus");
+var expirationASI = getParam("expirationASI");
 var emailAddress = getParam("emailAddress");					// email to send report
 var sendEmailToContactTypes = getParam("sendEmailToContactTypes");// send out emails?
 var emailTemplate = getParam("emailTemplate");					// email Template
@@ -158,7 +160,7 @@ function mainProcess() {
 		if (appSpecInfoResult.getSuccess()) {
 			var appspecObj = appSpecInfoResult.getOutput();
 			for (i in appspecObj) {
-				if ( appspecObj[i].getCheckboxDesc() == "Permit Expiration Date" ){
+				if ( appspecObj[i].getCheckboxDesc() == expirationASI ){
 					expDateASI = ""+appspecObj[i].getChecklistComment()
 					break;
 				}
