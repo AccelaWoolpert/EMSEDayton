@@ -140,7 +140,7 @@ function mainProcess() {
 
 	//Process Records
 	recList = capResult.getOutput();
-	logDebug("Processing " + recList.length + " " + appType + " records")
+	logDebug("Processing " + recList.length + " " + appType + " records" + br)
 	for (i in recList)  {
 		if (elapsed() > maxSeconds) {
 			// only continue if time hasn't expired
@@ -153,7 +153,7 @@ function mainProcess() {
 		tmpCapObj = aa.cap.getCap(capId)
 		altId = tmpCapObj.getSuccess() ? tmpCapObj.getOutput().getCapModel().getAltID() : null
 		
-		logDebug("Checking record: " + altId + br)
+		
 		
 		expDateASI = "null"
 		var appSpecInfoResult = aa.appSpecificInfo.getByCapID(capId);
@@ -169,6 +169,8 @@ function mainProcess() {
 		else
 			logDebug( "**ERROR: getting app specific info for Cap : " + appSpecInfoResult.getErrorMessage()) 
 
+		logDebug("Checking record: " + altId "; Expires: " + expDateASI + br)
+		
 		if (!matches(expDateASI,"null","undefined")) {
 			var expDate = new Date(dateAdd(null,1))
 			try {
