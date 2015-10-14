@@ -11,7 +11,7 @@ custom function declarations go here.   One function per file
 
 custom function declarations go here.   One function per file
 
-*/
+
 function validateRequiredPlanningASI() {
 	var requiredASIbyCaseType = []
 	requiredASIbyCaseType["Planned Development"] = ["Public Hearing Ad Date","City Commission Action"]
@@ -47,3 +47,4 @@ function validateRequiredPlanningASI() {
 		cancel = true
 	}
 }
+*/
