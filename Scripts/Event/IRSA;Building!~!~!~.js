@@ -9,7 +9,7 @@ if (matches(inspType, "Residential Final w/o CUO", "Commercial Final w/o CUO", "
 	
 	//Script 18
 	if (matches(""+getAppSpecific("CUO Required"),"N","No")) {
-		closeTask("Closed","Closed","Updated via Script","Updated via Script")
+		taskCloseAllExcept("Closed","Updated via Script")
 	}
 		
 }
