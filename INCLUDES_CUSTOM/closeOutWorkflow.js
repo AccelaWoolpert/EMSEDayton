@@ -12,7 +12,7 @@ function closeOutWorkflow(pStatus,pComment) {
 		wftask = fTask.getTaskDescription();
 		stepnumber = fTask.getStepNumber();
 		if (fTask.activeFlag == "Y" || wftask == "Closed") {
-			aa.workflow.handleDisposition(capId,stepnumber,pStatus,dispositionDate,pComment,pComment,systemUserObj,"Y");
+			aa.workflow.handleDisposition(capId,stepnumber,pStatus,dispositionDate,pComment,pComment,systemUserObj,"U");
 			logMessage("Closing Workflow Task " + wftask + " with status " + pStatus);
 			logDebug("Closing Workflow Task " + wftask + " with status " + pStatus);
 		}
