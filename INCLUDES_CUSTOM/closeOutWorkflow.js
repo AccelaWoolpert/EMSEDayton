@@ -20,7 +20,7 @@ function closeOutWorkflow(pStatus,pComment) {
 		else {
 			deactivateTask(wftask)
 		}
-		if (matches(wftask,"Inspection","Inspections") isInspTask = true
+		if (matches(wftask,"Inspection","Inspections")) isInspTask = true
 
 	}
 }
