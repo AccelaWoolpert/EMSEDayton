@@ -10,6 +10,7 @@ if (matches(inspType.slice(0,17), "Residential Final", "Commercial Final ") && i
 	//Script 18
 	if (matches(""+getAppSpecific("CUO Required"),"N","No")) {
 		closeOutWorkflow("Closed","Updated via Script")
+		deactivateTask("Inspection")
 	}
 		
 }
