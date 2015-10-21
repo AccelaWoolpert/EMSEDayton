@@ -15,3 +15,10 @@ if (matches(appTypeArray[1],"Mechanical")) {
 		logMessage("Must have a Job Cost greater than zero.")
 	}
 }
+
+//Script 17
+if (matches(appTypeArray[1],"Gas","Electrical","Plumbing","Sewer","Water") && CAELienseType == "Mechanical") {
+	showMessage = true
+	cancel = true
+	logMessage("License Type 'Mechanical' not allowed for this record type.")
+}
