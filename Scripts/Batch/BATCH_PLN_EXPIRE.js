@@ -1,4 +1,4 @@
-/******* Testing *******
+/******* Testing *******/
 
 aa.env.setValue("appGroup","Planning");
 aa.env.setValue("appTypeType","Planning Case");
@@ -12,7 +12,7 @@ aa.env.setValue("conType","Case No Appeal")
 aa.env.setValue("conName","Expired")
 
 
-***********************/
+//***********************/
 /*------------------------------------------------------------------------------------------------------/
 | Program: Batch Expiration.js  Trigger: Batch
 | Client: South Metro Fire
@@ -166,7 +166,7 @@ function mainProcess() {
 		wDatejs = new Date(wDate)
 
 		if (today > wDatejs) {
-			logDebug(br +"Expiring record: " altId)
+			logDebug(br +"Expiring record: " + altId)
 			updateAppStatus(newStatus, "Set by Script")
 			addStdCondition(conType,conName)
 			count++
