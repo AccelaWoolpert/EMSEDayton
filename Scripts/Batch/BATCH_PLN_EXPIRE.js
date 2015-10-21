@@ -1,21 +1,27 @@
 /******* Testing *******
 
-aa.env.setValue("asiField","Plan Board Expiration Date");
 aa.env.setValue("appGroup","Planning");
 aa.env.setValue("appTypeType","Planning Case");
 aa.env.setValue("appSubtype","NA");
 aa.env.setValue("appCategory","NA");
+aa.env.setValue("appStatus","Staff Report Complete")
 aa.env.setValue("newStatus","Expired")
-aa.env.setValue("conType","Board of Zoning Appeals")
+aa.env.setValue("expirationASI","Permit Expiration Date")
+
+aa.env.setValue("wTask","Case Complete")
+aa.env.setValue("wStatus","Closed")
+aa.env.setValue("conType","Case No Appeal")
 aa.env.setValue("conName","Expired")
 
-//***********************/
+
+***********************/
 /*------------------------------------------------------------------------------------------------------/
-| Client: Dayton
+| Program: Batch Expiration.js  Trigger: Batch
+| Client: South Metro Fire
 |
-| Frequency: Daily
+| Frequency: Annually on January 31 (31 days after to December 31)
 |
-| Desc: Expire records whos ASI field "Plan Board Expiration Date" is today
+| Desc: This batch script sets the record status when the ASI field "Permit Expiration Date" is today or in the past
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -27,32 +33,19 @@ emailText = "";
 maxSeconds = 4.5 * 60;		// number of seconds allowed for batch processing, usually < 5*60
 message = "";
 br = "<br>";
-appTypeArray =[]
-currentUserID = "ADMIN"
+debug = ""
+appTypeArray = []
 /*------------------------------------------------------------------------------------------------------/
 | BEGIN Includes
 /------------------------------------------------------------------------------------------------------*/
 SCRIPT_VERSION = 2.0
 
+emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput()
+servProvCode = aa.getServiceProviderCode()
 
-eval(getMasterScriptText("INCLUDES_ACCELA_FUNCTIONS"));
-eval(getScriptText("INCLUDES_BATCH"));
-eval(getMasterScriptText("INCLUDES_CUSTOM"));
-
-
-function getScriptText(vScriptName){
-	vScriptName = vScriptName.toUpperCase();
-	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-	var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(),vScriptName,"ADMIN");
-	return emseScript.getScriptText() + "";
-}
-
-function getMasterScriptText(vScriptName){
-	vScriptName = vScriptName.toUpperCase();
-	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-	var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(),vScriptName);
-	return emseScript.getScriptText() + "";
-}
+eval(""+emseBiz.getScriptByPK(servProvCode,"INCLUDES_ACCELA_FUNCTIONS","ADMIN").getScriptText())
+eval(""+emseBiz.getScriptByPK(servProvCode,"INCLUDES_BATCH","ADMIN").getScriptText())
+eval(""+emseBiz.getScriptByPK(servProvCode,"INCLUDES_CUSTOM","ADMIN").getScriptText())
 
 /*------------------------------------------------------------------------------------------------------/
 |
@@ -63,7 +56,7 @@ showDebug = true//aa.env.getValue("showDebug").substring(0,1).toUpperCase().equa
 
 sysDate = aa.date.getCurrentDate();
 batchJobResult = aa.batchJob.getJobID()
-batchJobName = "Test" //+ aa.env.getValue("BatchJobName");
+batchJobName = "Expire License" //+ aa.env.getValue("BatchJobName");
 wfObjArray = null;
 
 batchJobID = 0;
@@ -74,18 +67,21 @@ if (batchJobResult.getSuccess()){
 else
   logDebug("Batch job ID not found " + batchJobResult.getErrorMessage());
 
+
 /*----------------------------------------------------------------------------------------------------/
 |
 | Start: BATCH PARAMETERS
 |
 /------------------------------------------------------------------------------------------------------*/
 
-var asiField = getParam("asiField");
-var appGroup = getParam("appGroup");							// 
+var appGroup = getParam("appGroup");							//   app Group to process {Licenses}
 var appTypeType = getParam("appTypeType");						//   app type to process {Rental License}
 var appSubtype = getParam("appSubtype");						//   app subtype to process {NA}
 var appCategory = getParam("appCategory");						//   app category to process {NA}
+var appStatus = getParam("appStatus");
 var newStatus = getParam("newStatus");
+var wTask = getParam("wTask")
+var wStatus = getParam("wStatus");
 var conType = getParam("conType");
 var conName = getParam("conName");
 var emailAddress = getParam("emailAddress");					// email to send report
@@ -123,17 +119,31 @@ logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 if (emailAddress.length)
 	aa.sendMail("noreply@accela.com", emailAddress, "", batchJobName + " Results", emailText);
 
+
 /*------------------------------------------------------------------------------------------------------/
 | <===========END=Main=Loop================>
 /-----------------------------------------------------------------------------------------------------*/
 
 function mainProcess() {
 	//Batch Variables
-	var today = new Date()
 	var count = 0
-	
+	var today = new Date();
+	today.setHours(0,0,0,0)
+	today.setDate(today.getDate() - 30)
+
 	//Batch Record Set
-	capResult = aa.cap.getCapIDsByAppSpecificInfoField(asiField,jsDateToASIDate(today))
+	var capModelResult = aa.cap.getCapModel();
+	if (capModelResult.getSuccess()) {
+		var capModel = capModelResult.getOutput();
+		capModel.setCapStatus(appStatus);
+		var capTypeModel = capModel.getCapType();
+		if (appGroup != "*") capTypeModel.setGroup(appGroup);
+		if (appTypeType != "*") capTypeModel.setType(appTypeType);
+		if (appSubtype != "*") capTypeModel.setSubType(appSubtype);
+		if (appCategory != "*") capTypeModel.setCategory(appCategory);
+		capModel.setCapType(capTypeModel);
+		capResult = aa.cap.getCapIDListByCapModel(capModel);
+	}
 	if (!capResult.getSuccess()) {
 		logDebug("ERROR: Getting records, reason is: " + capResult.getErrorMessage()) ;
 		return false
@@ -141,7 +151,7 @@ function mainProcess() {
 
 	//Process Records
 	recList = capResult.getOutput();
-	logDebug("Processing " + recList.length + " records")
+	logDebug("Processing " + recList.length + " " + appType + " records" + br)
 	for (i in recList)  {
 		if (elapsed() > maxSeconds) {
 			// only continue if time hasn't expired
@@ -154,12 +164,13 @@ function mainProcess() {
 		tmpCapObj = aa.cap.getCap(capId)
 		altId = tmpCapObj.getSuccess() ? tmpCapObj.getOutput().getCapModel().getAltID() : null
 		
-		if (!appMatch(appType,capId)) continue
+		wDate = getWorkflowStatusDate(wTask, wStatus)
+		if (wDate == null) continue
 		
-		logDebug(br + "Expiring record: " + altId)
-		updateAppStatus(newStatus, "Set by Script")
-		addStdCondition(conType,conName)
-		count++
+		wDatejs = new Date(wDate)
+		logDebug(today +": " +wDatejs)
+		
+
 	}
-	logDebug(br + "Expired " + count + " record" + (count == 1 ? "" : "s"))
+	logDebug(count + " Records updated by the batch script.")
 }
