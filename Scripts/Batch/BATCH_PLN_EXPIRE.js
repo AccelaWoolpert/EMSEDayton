@@ -1,4 +1,4 @@
-/******* Testing *******/
+/******* Testing *******
 
 aa.env.setValue("appGroup","Planning");
 aa.env.setValue("appTypeType","Planning Case");
