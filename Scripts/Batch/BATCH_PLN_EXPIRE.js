@@ -9,7 +9,7 @@ aa.env.setValue("newStatus","Expired")
 aa.env.setValue("wTask","Case Complete")
 aa.env.setValue("wStatus","Closed")
 aa.env.setValue("conType","Case No Appeal")
-aa.env.setValue("conName","Expired")
+aa.env.setValue("conName","No Appeal on Case")
 
 
 //***********************/
