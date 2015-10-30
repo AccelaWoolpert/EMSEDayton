@@ -14,11 +14,11 @@ if (wfTask.slice(-6) == "Review") {
 }
 
 //Script 14
-if (matches(""+capStatus, "Final", "Finaled", "Close", "Closed" )) {
+if (matches((""+capStatus).toUpperCase(), "FINAL", "FINALED", "CLOSE", "CLOSED" )) {
 	addStdCondition("Finalled Permit","Finalled Permit")
 }
 
 //Script 15
-if (matches(""+capStatus, "Withdraw", "Withdrawn", "Withdrawal", "Cancel", "Canceled", "Expire", "Expired" )) {
+if (matches((""+capStatus).toUpperCase(), "WITHDRAW", "WITHDRAWN", "WITHDRAWAL", "CANCEL", "CANCELED", "EXPIRE", "EXPIRED" )) {
 	addStdCondition("Finalled Permit","Permit Read Only")
 }
