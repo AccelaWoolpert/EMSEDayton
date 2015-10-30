@@ -12,3 +12,13 @@ if (wfTask.slice(-6) == "Review") {
 	expDate.setMonth(expDate.getMonth()+6)
 	editAppSpecific("Plan Review Expiration Date",jsDateToASIDate(expDate))
 }
+
+//Script 14
+if (matches(""+capStatus, "Final", "Finaled", "Close", "Closed" )) {
+	addStdCondition("Finalled Permit","Finalled Permit")
+}
+
+//Script 15
+if (matches(""+capStatus, "Withdraw", "Withdrawn", "Withdrawal", "Cancel", "Canceled", "Expire", "Expired" )) {
+	addStdCondition("Finalled Permit","Permit Read Only")
+}
