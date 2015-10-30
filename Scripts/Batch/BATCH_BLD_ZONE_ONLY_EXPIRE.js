@@ -73,6 +73,7 @@ else
 /------------------------------------------------------------------------------------------------------*/
 
 var asiField = getParam("asiField");
+var asiValue = getParam("asiValue");
 var appGroup = getParam("appGroup");							// 
 var appTypeType = getParam("appTypeType");						//   app type to process {Rental License}
 var appSubtype = getParam("appSubtype");						//   app subtype to process {NA}
@@ -171,13 +172,13 @@ function mainProcess() {
 		approveDate = ""+taskStatusDate("Application Submittal")
 		approveDateJS = (approveDate == "null") ? null : new Date(approveDate)
 		
-		logDebug(br + altId + " - AppDate: "+approveDate+" expDate: "+today)
+		//logDebug(br + altId + " - AppDate: "+approveDate+" expDate: "+today)
 		if (approveDate != null && approveDateJS <= today) {
 			willExpire = true
 			childList = getChildren("Planning/Planning Case/NA/NA")
 			for (c in childList) {
 				thisChild = childList[c]
-				if (""+getAppSpecific("Case Type", thisChild) == "Appeals of Zoning Admin Decision") {
+				if (""+getAppSpecific(asiField, thisChild) == asiValue) {
 					logDebug(br + "Record: " + altId + " will not expire because it has a Planning Case of type 'Appeals of Zoning Admin Decision'")
 					willExpire = false
 					countPlan++
