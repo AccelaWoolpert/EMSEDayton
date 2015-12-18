@@ -23,7 +23,7 @@ aa.env.setValue("createTempRenewalRecord","");
 aa.env.setValue("feeSched","");
 aa.env.setValue("feeList","");
 aa.env.setValue("feePeriod","");
-//*/
+// */
 /*------------------------------------------------------------------------------------------------------/
 | Program: License Expirations.js  Trigger: Batch
 | Client:
