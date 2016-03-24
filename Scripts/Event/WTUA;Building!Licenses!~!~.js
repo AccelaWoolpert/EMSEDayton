@@ -8,6 +8,6 @@
 /*==================================================================*/
 
 if(wfTask == "Issue Registration" && wfStatus == "Issued"){
-	issueLicense(); 
+	issueLicense();
 //	maintainLPLookup();
 }
