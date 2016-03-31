@@ -11,7 +11,7 @@ function issueLicense(){// select statement to determine expiration date based o
 			updateAppStatus("Issued","Originally Issued",newLicId);
 			copyAppSpecific(newLicId);
 			copyASITables(capId,newLicId);
-//			changeApplicantToLicenseHolder(newLicId);
+			changeApplicantToLicenseHolder(newLicId);
 		}
 	}
 //	thisLic = new licenseObject(newLicIdString,newLicId);

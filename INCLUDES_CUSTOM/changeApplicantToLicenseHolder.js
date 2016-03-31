@@ -1,6 +1,6 @@
 function changeApplicantToLicenseHolder(licCapId){
 	var conToChange = null;
-	consResult = aa.people.getCapContactByCapId(licCapId);
+	consResult = aa.people.getCapContactByCapID(licCapId);
 	if(consResult.getSuccess()){
 		cons = consResult.getOutput();
 		for(thisCon in cons){
