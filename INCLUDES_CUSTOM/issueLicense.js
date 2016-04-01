@@ -1,4 +1,4 @@
-function issueLicense(){// select statement to determine expiration date based on license type
+function issueLicense(){
 	if(arguments.length > 0){
 		var newLicId = aa.cap.getCapID(arguments[0]).getOutput();
 		var newLicIdString = arguments[0];
@@ -14,18 +14,19 @@ function issueLicense(){// select statement to determine expiration date based o
 			changeApplicantToLicenseHolder(newLicId);
 		}
 	}
-//	thisLic = new licenseObject(newLicIdString,newLicId);
-//	expUnit = thisLic.b1Exp.getExpUnit();
-//	expInterval = thisLic.b1Exp.getExpInterval();
-//	var newExpDate;
-//	var currentYear = sysDate.getYear();// Current year
-//	var startingYear2000 = 2000;// Year 2000 is the reference year
-//	if(AInfo["Select Number of Years for Registration"] == "2 Year"){
-//		newExpDate = "12/31/" + currentYear + 1;
-//	}
-//	else {
-//		newExpDate = "12/31/" + currentYear;
-//	}
-//	logDebug("the new exp date is " + newExpDate);
-//	thisLic.setExpiration(newExpDate);
+	thisLic = new licenseObject(newLicIdString,newLicId);
+	thisLic.setStatus("Active");
+	var licFirstExpYear;
+	var licIssueDate = getWorkflowStatusDate("Issue Registration", "Issued");
+	var licIssueYear = 1900 + licIssueDate.getYear();
+	var licTerm = AInfo["Select Number of Years for Registration"];
+//	licTerm = "2 Year";
+	if(licTerm == "2 Year"){
+		licFirstExpYear = "12/31/" + (licIssueYear + 1);
+	}
+	else {
+		licFirstExpYear = "12/31/" + licIssueYear;
+	}
+	logDebug("the new exp date is " + licFirstExpYear);
+	thisLic.setExpiration(licFirstExpYear);
 }
