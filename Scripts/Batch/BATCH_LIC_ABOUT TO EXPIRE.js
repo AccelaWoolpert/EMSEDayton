@@ -16,6 +16,8 @@ aa.env.setValue("newStatus","About to Expire")
 |
 | Desc: This batch script sets the record status from 'Active' to 'About to Expire'
 |
+| Notes: Updated script to set Expiration Status to About to Expire
+|
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 |
