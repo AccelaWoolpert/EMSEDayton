@@ -1,3 +1,7 @@
+/*===================================================================
+// Standard Choices Item Name:  ASA;Enforcement!Case!NA!NA
+===================================================================*/
+
 //Script 46
 try {
 	var addResult = aa.address.getAddressByCapId(capId);
@@ -32,4 +36,18 @@ try {
 	else logDebug("**ERROR: getting address by cap ID: " + addResult.getErrorMessage())
 }
 catch(err) {logDebug(err)}
+
+/*===================================================================*/
+//ID: 
+//Name: 
+//Developer: Chris Godwin
+//Developer Agency: Woolpert
+//Script Description: Schedule Complaint Inspection on same day, assign inspection to record detail assigned to staff.
+//Status: 
+
+var numDays = 0;//set value to the number of days ahead to schedule inspection
+var assignedStaff = getAssignedToStaff();
+scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
+
+/*===================================================================*/
 
