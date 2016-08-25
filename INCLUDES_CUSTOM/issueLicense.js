@@ -1,4 +1,4 @@
-function issueLicense() {
+
 	//SET CONTACT STATE
 	var capContactResult = aa.people.getCapContactByCapID(capId);
 	if (capContactResult.getSuccess()) {
@@ -54,4 +54,3 @@ function issueLicense() {
 		
 		aa.licenseScript.associateLpWithCap(newLicId,refLP)
 	}
-}
