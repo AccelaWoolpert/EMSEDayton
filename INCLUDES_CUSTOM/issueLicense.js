@@ -43,7 +43,7 @@ function issueLicense() {
 		saveId = capId
 		capId = newLicId
 		AInfo["Business License #"] = newLicIdString
-		createRefLicProf(newLicIdString,"Contractor","License Holder")
+		createRefLicProf(newLicIdString,"Contractor","Applicant")
 		capId = saveId
 		
 		refLP = getRefLicenseProf(newLicIdString)
