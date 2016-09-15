@@ -40,18 +40,18 @@ function issueLicense() {
 		lic = new licenseObject(newLicIdString,newLicId);
 		lic.setStatus("Active");
 		lic.setExpiration(jsDateToASIDate(jsDate));
-		saveId = capId
-		capId = newLicId
-		AInfo["Business License #"] = newLicIdString
-		createRefLicProf(newLicIdString,"Contractor","Applicant")
-		capId = saveId
+		saveId = capId;
+		capId = newLicId;
+		AInfo["Business License #"] = newLicIdString;
+		createRefLicProf(newLicIdString,"Contractor","License Holder");
+		capId = saveId;
 		
-		refLP = getRefLicenseProf(newLicIdString)
-		refLP.setLicenseExpirationDate(aa.date.parseDate(jsDateToASIDate(jsDate)))
-		refLP.setLicenseIssueDate(aa.date.getCurrentDate())	
-		refLP.setBusinessName2("Issued")
-		aa.licenseScript.editRefLicenseProf(refLP)
+		refLP = getRefLicenseProf(newLicIdString);
+		refLP.setLicenseExpirationDate(aa.date.parseDate(jsDateToASIDate(jsDate)));
+		refLP.setLicenseIssueDate(aa.date.getCurrentDate());
+		refLP.setBusinessName2("Issued");
+		aa.licenseScript.editRefLicenseProf(refLP);
 		
-		aa.licenseScript.associateLpWithCap(newLicId,refLP)
+		aa.licenseScript.associateLpWithCap(newLicId,refLP);
 	}
 }
