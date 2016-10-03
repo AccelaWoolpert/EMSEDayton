@@ -20,10 +20,10 @@ function issueLicense() {
 		copyAppSpecific(newLicId);
 		copyASITables(capId,newLicId);
 		
-		jsDate = new Date()
-		//jsDate.setHours(0,0,0,0)
-		jsDate.setMonth(11)
-		jsDate.setDate(31)
+		jsDate = new Date();
+		jsDate.setHours(0,0,0,0);
+		jsDate.setMonth(11,30);
+//		jsDate.setDate(31)
 		
 		switch(""+AInfo["Select Number of Years for Registration"]) {
 			case "1 Year":
