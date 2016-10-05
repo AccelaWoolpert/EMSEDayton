@@ -55,6 +55,8 @@ scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
 //Developer Agency: Woolpert
 //Script Description: 
 try {
+    logDebug("Begin Accela > Hansen Test Script");
+
     function getScriptText(vScriptName) {
         vScriptName = vScriptName.toUpperCase();
         var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
@@ -86,33 +88,39 @@ try {
     var contentType = "application/json";
 
     function postToHansen(service, body) {
+        try{
+            logDebug("Posting Log Test");
+            var post = new org.apache.commons.httpclient.methods.PostMethod(UriBase + service);
+            var client = new org.apache.commons.httpclient.HttpClient();
 
-        var post = new org.apache.commons.httpclient.methods.PostMethod(UriBase + service);
-        var client = new org.apache.commons.httpclient.HttpClient();
+            // ---- Authentication ---- //
+            if (username !== null && password !== null) {
+                var creds = new org.apache.commons.httpclient.UsernamePasswordCredentials(username, password);
+                client.getParams().setAuthenticationPreemptive(true);
+                client.getState().setCredentials(org.apache.commons.httpclient.auth.AuthScope.ANY, creds);
+            }
+            // -------------------------- //
 
-        // ---- Authentication ---- //
-        if (username !== null && password !== null) {
-            var creds = new org.apache.commons.httpclient.UsernamePasswordCredentials(username, password);
-            client.getParams().setAuthenticationPreemptive(true);
-            client.getState().setCredentials(org.apache.commons.httpclient.auth.AuthScope.ANY, creds);
+            post.setRequestHeader("Content-type", contentType);
+            post.setRequestEntity(new org.apache.commons.httpclient.methods.StringRequestEntity(body, contentType, "UTF-8"));
+            var status = client.executeMethod(post);
+            aa.print("<br/>status: " + status);
+
+            var br = new java.io.BufferedReader(new java.io.InputStreamReader(post.getResponseBodyAsStream()));
+            var response = "";
+            var line = br.readLine();
+            while (line != null) {
+                response = response + line;
+                line = br.readLine();
+            }
+            post.releaseConnection();
+
+            return response;
         }
-        // -------------------------- //
-
-        post.setRequestHeader("Content-type", contentType);
-        post.setRequestEntity(new org.apache.commons.httpclient.methods.StringRequestEntity(body, contentType, "UTF-8"));
-        var status = client.executeMethod(post);
-        aa.print("<br/>status: " + status);
-
-        var br = new java.io.BufferedReader(new java.io.InputStreamReader(post.getResponseBodyAsStream()));
-        var response = "";
-        var line = br.readLine();
-        while (line != null) {
-            response = response + line;
-            line = br.readLine();
+        catch (err) {
+            logDebug("Error Posting Test: " + err);
+            return null;
         }
-        post.releaseConnection();
-
-        return response;
     };
 
     // Call to Hansen to test event from Accela
