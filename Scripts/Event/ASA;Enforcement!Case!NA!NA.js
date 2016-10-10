@@ -54,8 +54,6 @@ scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
 //Developer: James Lloyd
 //Developer Agency: Woolpert
 //Script Description: 
-try {
-    logDebug("Begin Accela > Hansen Test Script");
 
     function getScriptText(vScriptName) {
         vScriptName = vScriptName.toUpperCase();
@@ -89,7 +87,6 @@ try {
 
     function postToHansen(service, body) {
         try{
-            logDebug("Posting Log Test");
             var post = new org.apache.commons.httpclient.methods.PostMethod(UriBase + service);
             var client = new org.apache.commons.httpclient.HttpClient();
 
@@ -118,28 +115,25 @@ try {
             return response;
         }
         catch (err) {
-            logDebug("Error Posting Test: " + err);
             return null;
         }
     };
 
-    //var CaseAddress = aa.address.getAddressByCapId(capId);
-    //var AddressKey;
-    //Address = address.getOutput();
-    //for (yy in Address) {
+    var CaseAddress = aa.address.getAddressByCapId(capId);
+    var AddressKey;
+    Address = address.getOutput();
+    for (yy in Address) {
 
-    //    aa.print("Address[yy]: " + Address[yy]);
-    //    addScriptMod = Address[yy];
+        aa.print("Address[yy]: " + Address[yy]);
+        addScriptMod = Address[yy];
 
-    //    AddressKey = addScriptMod.getAddressId();
-    //}
+        AddressKey = addScriptMod.getAddressId();
+    }
 
-    //var ReferenceNumber = capId.getCustomID();
+    var ReferenceNumber = capId.getCustomID();
 
-  //  var jsonOut = { "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" };
+    var jsonOut = { "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" };
 
     // Call to Hansen to test event from Accela
     var logTest = postToHansen(LogTest, "");
     aa.print(logTest);
-}
-catch (err) { logDebug(err) }
