@@ -57,7 +57,24 @@ scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
 try {
     logDebug("Begin Accela > Hansen Test Script");
 
+    function getScriptText(vScriptName) {
+        vScriptName = vScriptName.toUpperCase();
+        var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+        var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
+        return emseScript.getScriptText() + "";
+    }
+    //****************************************************************
+    //  Accela Script include
+    //****************************************************************
+    eval(getScriptText("INCLUDES_CUSTOM"));
+    eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
 
+    //Global settings...
+    var showMessage = true;                        // Set to true to see results in popup window
+    var showDebug = true;                            // Set to true to see debug messages in popup window
+    var message = "";                            // Message String
+    var debug = "";                                // Debug String
+    var br = "<BR>";                            // Break Tag 
 
     //****************************************************************
     //Custom Web Service settings
@@ -106,8 +123,23 @@ try {
         }
     };
 
+    var CaseAddress = aa.address.getAddressByCapId(capId);
+    var AddressKey;
+    Address = address.getOutput();
+    for (yy in Address) {
+
+        aa.print("Address[yy]: " + Address[yy]);
+        addScriptMod = Address[yy];
+
+        AddressKey = addScriptMod.getAddressId();
+    }
+
+    var ReferenceNumber = capId.getCustomID();
+
+    var jsonOut = '{ "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" }';
+
     // Call to Hansen to test event from Accela
-    var logTest = postToHansen(LogTest, "");
+    var logTest = postToHansen(LogTest, jsonOut);
     aa.print(logTest);
 }
 catch (err) { logDebug(err) }
