@@ -123,23 +123,23 @@ try {
         }
     };
 
-    var CaseAddress = aa.address.getAddressByCapId(capId);
-    var AddressKey;
-    Address = address.getOutput();
-    for (yy in Address) {
+    //var CaseAddress = aa.address.getAddressByCapId(capId);
+    //var AddressKey;
+    //Address = address.getOutput();
+    //for (yy in Address) {
 
-        aa.print("Address[yy]: " + Address[yy]);
-        addScriptMod = Address[yy];
+    //    aa.print("Address[yy]: " + Address[yy]);
+    //    addScriptMod = Address[yy];
 
-        AddressKey = addScriptMod.getAddressId();
-    }
+    //    AddressKey = addScriptMod.getAddressId();
+    //}
 
-    var ReferenceNumber = capId.getCustomID();
+    //var ReferenceNumber = capId.getCustomID();
 
-    var jsonOut = { "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" };
+  //  var jsonOut = { "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" };
 
     // Call to Hansen to test event from Accela
-    var logTest = postToHansen(LogTest, "Test Output From Accela");
+    var logTest = postToHansen(LogTest, "");
     aa.print(logTest);
 }
 catch (err) { logDebug(err) }
