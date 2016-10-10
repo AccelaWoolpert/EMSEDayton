@@ -135,5 +135,5 @@ scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
     //var jsonOut = { "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" };
 
     // Call to Hansen to test event from Accela
-    var logTest = postToHansen(LogTest, "");
+    var logTest = postToHansen(LogTest, "TEST123");
     aa.print(logTest);
