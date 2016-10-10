@@ -139,7 +139,7 @@ try {
     var jsonOut = { "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" };
 
     // Call to Hansen to test event from Accela
-    var logTest = postToHansen(LogTest, JSON.stringify(jsonOut));
+    var logTest = postToHansen(LogTest, "Test Output From Accela");
     aa.print(logTest);
 }
 catch (err) { logDebug(err) }
