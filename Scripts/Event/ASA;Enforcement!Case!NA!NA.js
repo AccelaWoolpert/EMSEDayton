@@ -136,7 +136,7 @@ try {
 
     var ReferenceNumber = capId.getCustomID();
 
-    var jsonOut = '{ "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" }';
+    var jsonOut = { "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" };
 
     // Call to Hansen to test event from Accela
     var logTest = postToHansen(LogTest, JSON.stringify(jsonOut));
