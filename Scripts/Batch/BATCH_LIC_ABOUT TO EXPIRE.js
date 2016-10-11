@@ -10,7 +10,7 @@ aa.env.setValue("newStatus","About to Expire")
 ***********************/
 /*------------------------------------------------------------------------------------------------------/
 | Program: Batch Expiration.js  Trigger: Batch
-| Client: South Metro Fire
+| Client: City of Dayton
 |
 | Frequency: Annually on November 16 (45 days prior to December 31)
 |
