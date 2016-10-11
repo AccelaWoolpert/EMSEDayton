@@ -16,7 +16,7 @@ aa.env.setValue("newStatus","About to Expire")
 |
 | Desc: This batch script sets the record status from 'Active' to 'About to Expire'
 |
-| Notes: Updated script to set Expiration Status to About to Expire
+| Notes: Updated script to check and set Renewal Info Expiration Status.
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -68,15 +68,17 @@ else
 |
 /------------------------------------------------------------------------------------------------------*/
 
-var appGroup = getParam("appGroup");							//   app Group to process {Licenses}
-var appTypeType = getParam("appTypeType");						//   app type to process {Rental License}
-var appSubtype = getParam("appSubtype");						//   app subtype to process {NA}
-var appCategory = getParam("appCategory");						//   app category to process {NA}
-var appStatus = getParam("appStatus");
-var newStatus = getParam("newStatus");
-var emailAddress = getParam("emailAddress");					// email to send report
-var sendEmailToContactTypes = getParam("sendEmailToContactTypes");// send out emails?
-var emailTemplate = getParam("emailTemplate");					// email Template
+var appGroup = getParam("appGroup");							  //app Group to process {Licenses}
+var appTypeType = getParam("appTypeType");						  //app type to process {Rental License}
+var appSubtype = getParam("appSubtype");						  //app subtype to process {NA}
+var appCategory = getParam("appCategory");						  //app category to process {NA}
+var appStatus = getParam("appStatus");							  //exp status to qualify {Active}
+var newStatus = getParam("newStatus");							  //exp status to set {About to Expire}
+var expStatus = getParam("expirationStatus");					  //check for this expiration status
+var newExpStatus = getParam("newExpirationStatus");				  //update to this expiration status
+var emailAddress = getParam("emailAddress");					  //email to send report
+var sendEmailToContactTypes = getParam("sendEmailToContactTypes");//send out emails to?
+var emailTemplate = getParam("emailTemplate");					  //email Template
 
 /*----------------------------------------------------------------------------------------------------/
 |
