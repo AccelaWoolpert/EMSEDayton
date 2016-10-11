@@ -55,85 +55,105 @@ scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
 //Developer Agency: Woolpert
 //Script Description: 
 
-    function getScriptText(vScriptName) {
-        vScriptName = vScriptName.toUpperCase();
-        var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-        var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
-        return emseScript.getScriptText() + "";
+function getScriptText(vScriptName) {
+    vScriptName = vScriptName.toUpperCase();
+    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+    var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
+    return emseScript.getScriptText() + "";
+}
+//****************************************************************
+//  Accela Script include
+//****************************************************************
+eval(getScriptText("INCLUDES_CUSTOM"));
+eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+
+//Global settings...
+var showMessage = true;                        // Set to true to see results in popup window
+var showDebug = true;                            // Set to true to see debug messages in popup window
+var message = "";                            // Message String
+var debug = "";                                // Debug String
+var br = "<BR>";                            // Break Tag 
+
+//****************************************************************
+//Custom Web Service settings
+//****************************************************************
+var UriBase = "http://10.16.81.21:804/HansenAccelaServices/";
+var LogTest = "LogTest.svc/LogTest";
+
+var provider = "Han84";
+var username = "jlloyd";
+var password = 'hansen';
+var contentType = "application/json";
+
+
+function postToHansen(service, body) {
+    try {
+        var post = new org.apache.commons.httpclient.methods.PostMethod(UriBase + service);
+        var client = new org.apache.commons.httpclient.HttpClient();
+
+        // ---- Authentication ---- //
+        if (username !== null && password !== null) {
+            var creds = new org.apache.commons.httpclient.UsernamePasswordCredentials(username, password);
+            client.getParams().setAuthenticationPreemptive(true);
+            client.getState().setCredentials(org.apache.commons.httpclient.auth.AuthScope.ANY, creds);
+        }
+        // -------------------------- //
+
+        post.setRequestHeader("Content-type", contentType);
+        post.setRequestEntity(new org.apache.commons.httpclient.methods.StringRequestEntity(body, contentType, "UTF-8"));
+        var status = client.executeMethod(post);
+        aa.print("<br/>status: " + status);
+
+        var br = new java.io.BufferedReader(new java.io.InputStreamReader(post.getResponseBodyAsStream()));
+        var response = "";
+        var line = br.readLine();
+        while (line != null) {
+            response = response + line;
+            line = br.readLine();
+        }
+        post.releaseConnection();
+
+        return response;
     }
-    //****************************************************************
-    //  Accela Script include
-    //****************************************************************
-    eval(getScriptText("INCLUDES_CUSTOM"));
-    eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+    catch (err) {
+        return null;
+    }
+};
 
-    //Global settings...
-    var showMessage = true;                        // Set to true to see results in popup window
-    var showDebug = true;                            // Set to true to see debug messages in popup window
-    var message = "";                            // Message String
-    var debug = "";                                // Debug String
-    var br = "<BR>";                            // Break Tag 
+var ReferenceNumber = capId.getCustomID();
 
-    //****************************************************************
-    //Custom Web Service settings
-    //****************************************************************
-    var UriBase = "http://10.16.81.21:804/HansenAccelaServices/";
-    var LogTest = "LogTest.svc/LogTest";
+var CaseAddress = aa.address.getAddressByCapId(capId);
+aa.print("CaseAddress: " + CaseAddress);
+aa.print("CaseAddress.getOutput() :" + CaseAddress.getOutput());
 
-    var provider = "Han84";
-    var username = "jlloyd";
-    var password = 'hansen';
-    var contentType = "application/json";
+var AddressKey;
+Address = CaseAddress.getOutput();
+for (yy in Address) {
 
-    function postToHansen(service, body) {
-        try{
-            var post = new org.apache.commons.httpclient.methods.PostMethod(UriBase + service);
-            var client = new org.apache.commons.httpclient.HttpClient();
+    aa.print("Address[yy]: " + Address[yy]);
+    addScriptMod = Address[yy];
+    aa.print("addScriptMod: " + addScriptMod);
+    AddressKey = addScriptMod.getAddressId();
+    aa.print("AddressKey: " + AddressKey.toString());
+}
 
-            // ---- Authentication ---- //
-            if (username !== null && password !== null) {
-                var creds = new org.apache.commons.httpclient.UsernamePasswordCredentials(username, password);
-                client.getParams().setAuthenticationPreemptive(true);
-                client.getState().setCredentials(org.apache.commons.httpclient.auth.AuthScope.ANY, creds);
-            }
-            // -------------------------- //
+var jsonOut = '{ "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" }';
 
-            post.setRequestHeader("Content-type", contentType);
-            post.setRequestEntity(new org.apache.commons.httpclient.methods.StringRequestEntity(body, contentType, "UTF-8"));
-            var status = client.executeMethod(post);
-            aa.print("<br/>status: " + status);
+aa.print(jsonOut);
+aa.print(JSON.stringify(jsonOut));
 
-            var br = new java.io.BufferedReader(new java.io.InputStreamReader(post.getResponseBodyAsStream()));
-            var response = "";
-            var line = br.readLine();
-            while (line != null) {
-                response = response + line;
-                line = br.readLine();
-            }
-            post.releaseConnection();
+// Call to Hansen to test event from Accela
+var logTest = postToHansen(LogTest, jsonOut);
+aa.print(logTest);
 
-            return response;
-        }
-        catch (err) {
-            return null;
-        }
-    };
+/*
+capIDModel: com.accela.aa.emse.dom.ScriptResult@1a2ecb51
+capIDModel.getOutput(): REC16-00000-00234
+CaseAddress: com.accela.aa.emse.dom.ScriptResult@14060867
+CaseAddress.getOutput() :[Lcom.accela.aa.aamain.address.AddressModel;@1811ac76
+Address[yy]: 1020 S Main ST,  Dayton, OH 45409-2722
+addScriptMod: 1020 S Main ST,  Dayton, OH 45409-2722
+AddressKey: 292540
 
-    //var CaseAddress = aa.address.getAddressByCapId(capId);
-    //var AddressKey;
-    //Address = address.getOutput();
-    //for (yy in Address) {
 
-    //    aa.print("Address[yy]: " + Address[yy]);
-    //    addScriptMod = Address[yy];
-
-    //    AddressKey = addScriptMod.getAddressId();
-    //}
-
-    //var ReferenceNumber = capId.getCustomID();
-
-    //var jsonOut = { "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" };
-
-    // Call to Hansen to test event from Accela
-    var logTest = postToHansen(LogTest, "TEST123");
-    aa.print(logTest);
+*/
