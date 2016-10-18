@@ -79,6 +79,7 @@ var br = "<BR>";                            // Break Tag
 //****************************************************************
 var UriBase = "http://10.16.81.21:804/HansenAccelaServices/";
 var LogTest = "LogTest.svc/LogTest";
+var CreateHansenServiceRequest = "HansenServiceRequestCreate.svc/CreateHansenServiceRequest";
 
 var provider = "Han84";
 var username = "jlloyd";
@@ -122,38 +123,88 @@ function postToHansen(service, body) {
 
 var ReferenceNumber = capId.getCustomID();
 
-var CaseAddress = aa.address.getAddressByCapId(capId);
-aa.print("CaseAddress: " + CaseAddress);
-aa.print("CaseAddress.getOutput() :" + CaseAddress.getOutput());
-
+//Address Key
+var capAddResult = aa.address.getAddressByCapId(capId);
 var AddressKey;
-Address = CaseAddress.getOutput();
-for (yy in Address) {
+var StreetNumber;
+var PreDirection;
+var StreetName;
+var Suffix;
+var City;
+var State;
+var Zip;
 
-    aa.print("Address[yy]: " + Address[yy]);
-    addScriptMod = Address[yy];
-    aa.print("addScriptMod: " + addScriptMod);
-    AddressKey = addScriptMod.getAddressId();
-    aa.print("AddressKey: " + AddressKey.toString());
+if (capAddResult.getSuccess()) {
+    var Adds = capAddResult.getOutput();
+    for (zz in Adds) {
+        //AddressKey = Adds[zz].getRefAddressId();
+        PreDirection = Adds[zz].getStreetDirection();
+        StreetNumber = Adds[zz].getHouseNumberStart();
+        StreetName = Adds[zz].getStreetName();
+        Suffix = Adds[zz].getStreetSuffix();
+        City = Adds[zz].getCity();
+        State =  Adds[zz].getState();
+        Zip = Adds[zz].getZip();
+    }
+};
+
+var fcapAddressObj;
+var capAddressResult = aa.address.getAddressWithAttributeByCapId(capId);
+if (capAddressResult.getSuccess())
+{
+    fcapAddressObj = capAddressResult.getOutput();
 }
+ 
+for (i in fcapAddressObj) {
+    var addressAttrObj = fcapAddressObj[i].getAttributes().toArray();
+    for (z in addressAttrObj) {
+        if (addressAttrObj[z].getB1AttributeName() == "ADDRKEY") {
+            AddressKey = addressAttrObj[z].getB1AttributeValue();
+        };
+    };
+};
 
-var jsonOut = '{ "ReferenceNumber": "' + ReferenceNumber + '", "AddressKey": "' + AddressKey + '" }';
+//Complaint 3 - Request Type
+var RequestType;
+var itemName = "Complaint 3";
 
-aa.print(jsonOut);
-aa.print(JSON.stringify(jsonOut));
+var appSpecInfoResult = aa.appSpecificInfo.getByCapID(capId);
+var appspecObj = appSpecInfoResult.getOutput();
 
-// Call to Hansen to test event from Accela
-var logTest = postToHansen(LogTest, jsonOut);
-aa.print(logTest);
+for (i in appspecObj)
+    if (appspecObj[i].getCheckboxDesc() == itemName) {
+        RequestType = appspecObj[i].getChecklistComment();
+    }
 
-/*
-capIDModel: com.accela.aa.emse.dom.ScriptResult@1a2ecb51
-capIDModel.getOutput(): REC16-00000-00234
-CaseAddress: com.accela.aa.emse.dom.ScriptResult@14060867
-CaseAddress.getOutput() :[Lcom.accela.aa.aamain.address.AddressModel;@1811ac76
-Address[yy]: 1020 S Main ST,  Dayton, OH 45409-2722
-addScriptMod: 1020 S Main ST,  Dayton, OH 45409-2722
-AddressKey: 292540
+//TODO: Get Request Type from Complaint section of Case
+//      Get Contact Key
+
+var ContactKey = "1001";
+var AddedBy = "LLO01";
+var Inspector = "WAR07";
+var Priority = "2";
+if (AddressKey === null) { AddressKey = 0; }
+var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
+                    '", "AddressKey" : "' + AddressKey +
+                    '", "PreDirection" : "' + PreDirection +
+                    '", "StreetNumber" : "' + StreetNumber +
+                    '", "StreetName" : "' + StreetName +
+                    '", "Suffix" : "' + Suffix +
+                    '", "City" : "' + City +
+                    '", "State" : "' + State +
+                    '", "Zip" : "' + Zip +
+                    '", "RequestType" : "' + RequestType +
+                    '", "ContactKey" : "' + ContactKey +
+                    '", "Inspector" : "' + Inspector +
+                    '", "Priority" : "' + Priority +
+                    '", "AddedBy" : "' + AddedBy + '"}';
 
 
-*/
+var hansenSRNo = postToHansen(CreateHansenServiceRequest, jsonOut);
+//var logTest = postToHansen(LogTest, jsonOut);
+
+//Set Hansen SR#
+var hansenSRField = "Hansen SR#";
+var appSpecInfoUpdateResultHansenSRNo = aa.appSpecificInfo.editSingleAppSpecific(capId, hansenSRField, hansenSRNo, null);
+
+
