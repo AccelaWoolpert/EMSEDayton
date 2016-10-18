@@ -176,12 +176,34 @@ for (i in appspecObj)
         RequestType = appspecObj[i].getChecklistComment();
     }
 
+//Get Inspector value from Case
+var Inspector = ""; // = "WAR07";
+var inspections = aa.inspection.getInspections(capId);
+var inspectionList = inspections.getOutput();
+
+for (inspection in inspectionList) {
+    aa.print("inspections[i]: " + inspectionList[inspection].getInspector());
+    var userModel = inspectionList[inspection].getInspector();
+    var userId = userModel.getUserID();
+
+    var strControl;
+    var bizDomain = "ACCELA_USERNAME_TO_EMPID";
+    var bizDomainValue = userId;
+    var bizDomScriptResult = aa.bizDomain.getBizDomainByValue(bizDomain, userId);
+
+    if (bizDomScriptResult.getSuccess()) {
+        var bizDomScriptObj = bizDomScriptResult.getOutput();
+        strControl = "" + bizDomScriptObj.getDescription(); // had to do this or it bombs.  who knows why?
+        Inspector = strControl;
+    }
+}
+
 //TODO: Get Request Type from Complaint section of Case
 //      Get Contact Key
 
 var ContactKey = "1001";
 var AddedBy = "LLO01";
-var Inspector = "WAR07";
+
 var Priority = "2";
 if (AddressKey === null) { AddressKey = 0; }
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
