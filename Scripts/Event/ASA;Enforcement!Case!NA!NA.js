@@ -166,7 +166,7 @@ for (i in fcapAddressObj) {
 
 //Complaint 3 - Request Type
 var RequestType;
-var itemName = "Complaint 3";
+var itemName = "Complaint 1";
 
 var appSpecInfoResult = aa.appSpecificInfo.getByCapID(capId);
 var appspecObj = appSpecInfoResult.getOutput();
