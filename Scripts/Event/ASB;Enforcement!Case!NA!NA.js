@@ -17,6 +17,7 @@ function getScriptText(vScriptName) {
 //****************************************************************
 eval(getScriptText("INCLUDES_CUSTOM"));
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS_ASB"));
 
 //Global settings...
 var showMessage = true;                        // Set to true to see results in popup window
