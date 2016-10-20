@@ -141,13 +141,20 @@ for (inspection in inspectionList) {
     }
 }
 
+// Get Priority
+var cdScriptObjResult = aa.cap.getCapDetail(itemCap);
+var cdScriptObj = cdScriptObjResult.getOutput();
+var cd = cdScriptObj.getCapDetailModel();
+var Priority = cd.getPriority();
+
 //TODO: Get Request Type from Complaint section of Case
 //      Get Contact Key
 
 var ContactKey = "1001";
 var AddedBy = "LLO01";
 
-var Priority = "2";
+
+
 if (AddressKey === null) { AddressKey = 0; }
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     '", "AddressKey" : "' + AddressKey +
