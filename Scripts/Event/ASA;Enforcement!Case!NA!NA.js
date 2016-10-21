@@ -207,8 +207,18 @@ var cdScriptObj = cdScriptObjResult.getOutput();
 var cd = cdScriptObj.getCapDetailModel();
 var Priority = cd.getPriority();
 
-//TODO: Get Request Type from Complaint section of Case
-//      Get Contact Key
+// Get the Request Date
+var inspections = aa.inspection.getInspections(capId);
+var inspectionList = inspections.getOutput();
+var RequestDate;
+for (inspection in inspectionList) {
+    var scriptDateTime = inspectionList[inspection].getRequestDate();
+    var RequestDate = scriptDateTime.getMonth() + "/" + scriptDateTime.getDayOfMonth() + "/" + scriptDateTime.getYear();
+//    var requestDate = new Date(String(requestDateString));
+}
+
+// Get Case Status
+var Resolution = aa.cap.getCapStatus();
 
 var ContactKey = "1001";
 var AddedBy = "LLO01";
@@ -228,6 +238,8 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     '", "ContactKey" : "' + ContactKey +
                     '", "Inspector" : "' + Inspector +
                     '", "Priority" : "' + Priority +
+                    '", "InitiatedDateTime" : "' + RequestDate +
+                    '", "Resolution" : "' + Resolution +
                     '", "AddedBy" : "' + AddedBy + '"}';
 
 
