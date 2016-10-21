@@ -154,7 +154,6 @@ var ContactKey = "1001";
 var AddedBy = "LLO01";
 
 
-
 if (AddressKey === null) { AddressKey = 0; }
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     '", "AddressKey" : "' + AddressKey +
@@ -173,9 +172,9 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
 
 
 var hansenSRNo = postToHansen(CreateHansenServiceRequest, jsonOut);
-//var logTest = postToHansen(LogTest, jsonOut);
+var logTest = postToHansen(LogTest, jsonOut);
 
 //Set Hansen SR#
-var hansenSRField = "Hansen SR#";
-var appSpecInfoUpdateResultHansenSRNo = aa.appSpecificInfo.editSingleAppSpecific(capId, hansenSRField, hansenSRNo, null);
+//var hansenSRField = "Hansen SR#";
+//var appSpecInfoUpdateResultHansenSRNo = aa.appSpecificInfo.editSingleAppSpecific(capId, hansenSRField, hansenSRNo, null);
 
