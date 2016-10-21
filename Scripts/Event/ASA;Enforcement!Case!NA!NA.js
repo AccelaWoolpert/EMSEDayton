@@ -202,7 +202,7 @@ for (inspection in inspectionList) {
 }
 
 // Get Priority
-var cdScriptObjResult = aa.cap.getCapDetail(itemCap);
+var cdScriptObjResult = aa.cap.getCapDetail(capId);
 var cdScriptObj = cdScriptObjResult.getOutput();
 var cd = cdScriptObj.getCapDetailModel();
 var Priority = cd.getPriority();
