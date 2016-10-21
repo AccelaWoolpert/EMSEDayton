@@ -235,5 +235,6 @@ var hansenSRNo = postToHansen(CreateHansenServiceRequest, jsonOut);
 //var hansenSRNo = postToHansen(LogTest, jsonOut);
 
 //Set Hansen SR#
+var hansenSRField = "Hansen SR#";
 var appSpecInfoUpdateResultHansenSRNo = aa.appSpecificInfo.editSingleAppSpecific(capId, hansenSRField, hansenSRNo, null);
 

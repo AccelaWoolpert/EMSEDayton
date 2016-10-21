@@ -142,7 +142,7 @@ for (inspection in inspectionList) {
 }
 
 // Get Priority
-var cdScriptObjResult = aa.cap.getCapDetail(itemCap);
+var cdScriptObjResult = aa.cap.getCapDetail(capId);
 var cdScriptObj = cdScriptObjResult.getOutput();
 var cd = cdScriptObj.getCapDetailModel();
 var Priority = cd.getPriority();
@@ -175,5 +175,6 @@ var hansenSRNo = postToHansen(CreateHansenServiceRequest, jsonOut);
 //var hansenSRNo = postToHansen(LogTest, jsonOut);
 
 //Set Hansen SR#
+var hansenSRField = "Hansen SR#";
 var appSpecInfoUpdateResultHansenSRNo = aa.appSpecificInfo.editSingleAppSpecific(capId, hansenSRField, hansenSRNo, null);
 
