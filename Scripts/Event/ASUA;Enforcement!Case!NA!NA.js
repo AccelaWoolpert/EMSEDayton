@@ -30,6 +30,8 @@ var br = "<BR>";                            // Break Tag
 
 logDebug("Change Status");
 
+aa.env.setValue("ScriptReturnMessage", "Hello");
+
 //****************************************************************
 //Custom Web Service settings
 //****************************************************************
