@@ -8,6 +8,8 @@
 //showMessage = true;//sets global to display the message as a pop-up
 //message("Case Updated...");//the message you want to display
 //cancel = true;//cancels the action
+
+
 function getScriptText(vScriptName) {
     vScriptName = vScriptName.toUpperCase();
     var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
@@ -28,9 +30,9 @@ var message = "";                            // Message String
 var debug = "";                                // Debug String
 var br = "<BR>";                            // Break Tag 
 
-logDebug("Change Status");
 
-aa.env.setValue("ScriptReturnMessage", "Hello");
+
+
 
 //****************************************************************
 //Custom Web Service settings
@@ -89,3 +91,4 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
 var logTest = postToHansen(LogTest, jsonOut);
 
 
+logDebug("Change Status");
