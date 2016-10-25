@@ -28,6 +28,8 @@ var message = "";                            // Message String
 var debug = "";                                // Debug String
 var br = "<BR>";                            // Break Tag 
 
+logDebug("Change Status");
+
 //****************************************************************
 //Custom Web Service settings
 //****************************************************************
@@ -75,13 +77,13 @@ function postToHansen(service, body) {
     }
 };
 
-var ReferenceNumber = 1111;
-var AddressKey = 2222;
-var ContactKey = 3333;
-var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
-                    '", "ContactKey" : "' + ContactKey +
-                    '", "AddedBy" : "' + AddressKey + '"}';
+//var ReferenceNumber = 1111;
+//var AddressKey = 2222;
+//var ContactKey = 3333;
+//var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
+//                    '", "ContactKey" : "' + ContactKey +
+//                    '", "AddedBy" : "' + AddressKey + '"}';
 
-var logTest = postToHansen(LogTest, jsonOut);
+//var logTest = postToHansen(LogTest, jsonOut);
 
 
