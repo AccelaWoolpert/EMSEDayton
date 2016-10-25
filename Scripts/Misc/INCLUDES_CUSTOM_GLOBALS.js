@@ -1,4 +1,4 @@
 //INCLUDES_CUSTOM_GLOBALS
-var environment = "DEVELOPMENT";
-//var environment = "SUPPORT";
-//var environment = "PRODUCTION";
+var HansenAccelaEnvironment = "DEVELOPMENT";
+//var HansenAccelaEnvironment = "SUPPORT";
+//var HansenAccelaEnvironment = "PRODUCTION";
