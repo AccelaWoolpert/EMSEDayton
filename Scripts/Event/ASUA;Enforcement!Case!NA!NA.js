@@ -39,11 +39,8 @@
 //****************************************************************
 var UriBase = "http://10.16.81.21:804/HansenAccelaServices/";
 var LogTest = "LogTest.svc/LogTest";
-var CreateHansenServiceRequest = "HansenServiceRequestCreate.svc/CreateHansenServiceRequest";
+var UpdateStatusHansenServiceRequest = "HansenUpdateStatus.svc/UpdateStatusHansenServiceRequest";
 
-var provider = "Han84";
-var username = "jlloyd";
-var password = 'hansen';
 var contentType = "application/json";
 
 
@@ -81,6 +78,8 @@ function postToHansen(service, body) {
     }
 };
 
+logDebug("capStatus: " + capStatus);
+
 var ReferenceNumber = 1111;
 var AddressKey = 2222;
 var ContactKey = 3333;
@@ -88,7 +87,6 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     '", "ContactKey" : "' + ContactKey +
                     '", "AddedBy" : "' + AddressKey + '"}';
 
-var logTest = postToHansen(LogTest, jsonOut);
+//var logTest = postToHansen(UpdateStatusHansenServiceRequest, jsonOut);
 
 
-logDebug("Change Status");
