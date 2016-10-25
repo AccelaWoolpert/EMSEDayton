@@ -25,7 +25,7 @@ eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS_ASB"));
 
 //Global settings...
 var showMessage = true;                        // Set to true to see results in popup window
-var showDebug = true;                            // Set to true to see debug messages in popup window
+var showDebug = 3;                            // Set to true to see debug messages in popup window
 var message = "";                            // Message String
 var debug = "";                                // Debug String
 var br = "<BR>";                            // Break Tag 
