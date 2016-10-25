@@ -84,9 +84,9 @@ var ReferenceNumber = 1111;
 var AddressKey = 2222;
 var ContactKey = 3333;
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
-                    '", "ContactKey" : "' + ContactKey +
-                    '", "AddedBy" : "' + AddressKey + '"}';
+                    //'", "ContactKey" : "' + Resolution +
+                    '", "Resolution" : "' + Resolution + '"}';
 
-//var logTest = postToHansen(UpdateStatusHansenServiceRequest, jsonOut);
+postToHansen(UpdateStatusHansenServiceRequest, jsonOut);
 
 
