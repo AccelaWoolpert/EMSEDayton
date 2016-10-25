@@ -78,14 +78,13 @@ function postToHansen(service, body) {
     }
 };
 
-logDebug("capStatus: " + capStatus);
 
 var ReferenceNumber = 1111;
 var AddressKey = 2222;
 var ContactKey = 3333;
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     //'", "ContactKey" : "' + Resolution +
-                    '", "Resolution" : "' + Resolution + '"}';
+                    '", "Resolution" : "' + capStatus + '"}';
 
 postToHansen(UpdateStatusHansenServiceRequest, jsonOut);
 
