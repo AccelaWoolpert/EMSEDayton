@@ -97,6 +97,7 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     '", "Resolution" : "' + capStatus + '"}';
 
 //logDebug("Preparing to post to Hansen");
-//logDebug("Post to Hansen Response: " + postToHansen(UpdateStatusHansenServiceRequest, jsonOut));
+
+logDebug("Post to Hansen Response: " + postToHansen(UpdateStatusHansenServiceRequest, jsonOut));
 
 //logDebug("Posted to Hansen");
