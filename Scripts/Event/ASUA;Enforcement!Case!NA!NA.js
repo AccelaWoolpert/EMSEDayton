@@ -25,7 +25,7 @@
 
 //Global settings...
 var showMessage = true;                        // Set to true to see results in popup window
-var showDebug = true;                            // Set to true to see debug messages in popup window
+var showDebug = false;                            // Set to true to see debug messages in popup window
 var message = "";                            // Message String
 var debug = "";                                // Debug String
 var br = "<BR>";                            // Break Tag 
