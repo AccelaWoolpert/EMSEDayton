@@ -98,6 +98,6 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
 
 //logDebug("Preparing to post to Hansen");
 
-logDebug("Post to Hansen Response: " + postToHansen(UpdateStatusHansenServiceRequest, jsonOut));
+postToHansen(UpdateStatusHansenServiceRequest, jsonOut);
 
 //logDebug("Posted to Hansen");
