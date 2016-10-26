@@ -82,7 +82,7 @@ function postToHansen(service, body) {
 
 //Get Hansen SR#
 var ReferenceNumber;
-var appSpecInfoResult = aa.appSpecificInfo.getByCapID(capId.getOutput());
+var appSpecInfoResult = aa.appSpecificInfo.getByCapID(capId);
 var appspecObj = appSpecInfoResult.getOutput();
 var itemName = "Hansen SR#";
 for (i in appspecObj) {
