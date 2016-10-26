@@ -86,6 +86,7 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     //'", "ContactKey" : "' + Resolution +
                     '", "Resolution" : "' + capStatus + '"}';
 
+logDebug("Preparing to post to Hansen");
 postToHansen(UpdateStatusHansenServiceRequest, jsonOut);
 
-
+logDebug("Posted to Hansen");
