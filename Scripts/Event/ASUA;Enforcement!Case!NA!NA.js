@@ -10,17 +10,17 @@
 //cancel = true;//cancels the action
 
 
-function getScriptText(vScriptName) {
-    vScriptName = vScriptName.toUpperCase();
-    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-    var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
-    return emseScript.getScriptText() + "";
-}
-//****************************************************************
-//  Accela Script include
-//****************************************************************
-eval(getScriptText("INCLUDES_CUSTOM"));
-eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+//function getScriptText(vScriptName) {
+//    vScriptName = vScriptName.toUpperCase();
+//    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+//    var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
+//    return emseScript.getScriptText() + "";
+//}
+////****************************************************************
+////  Accela Script include
+////****************************************************************
+//eval(getScriptText("INCLUDES_CUSTOM"));
+//eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
 
 
 //Global settings...
@@ -81,9 +81,7 @@ function postToHansen(service, body) {
 };
 
 
-var ReferenceNumber = 1111;
-var AddressKey = 2222;
-var ContactKey = 3333;
+var ReferenceNumber = capId.getCustomID();
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     //'", "ContactKey" : "' + Resolution +
                     '", "Resolution" : "' + capStatus + '"}';
