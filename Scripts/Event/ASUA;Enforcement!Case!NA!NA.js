@@ -10,18 +10,18 @@
 //cancel = true;//cancels the action
 
 
-//function getScriptText(vScriptName) {
-//    vScriptName = vScriptName.toUpperCase();
-//    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-//    var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
-//    return emseScript.getScriptText() + "";
-//}
+function getScriptText(vScriptName) {
+    vScriptName = vScriptName.toUpperCase();
+    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+    var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
+    return emseScript.getScriptText() + "";
+}
 //****************************************************************
 //  Accela Script include
 //****************************************************************
-//eval(getScriptText("INCLUDES_CUSTOM"));
-//eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
-//eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS_ASB"));
+eval(getScriptText("INCLUDES_CUSTOM"));
+eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+
 
 //Global settings...
 //var showMessage = true;                        // Set to true to see results in popup window
@@ -42,8 +42,6 @@ var LogTest = "LogTest.svc/LogTest";
 var UpdateStatusHansenServiceRequest = "HansenUpdateStatus.svc/UpdateStatusHansenServiceRequest";
 
 var contentType = "application/json";
-
-
 function postToHansen(service, body) {
     try {
         var post = new org.apache.commons.httpclient.methods.PostMethod(UriBase + service);
@@ -74,6 +72,7 @@ function postToHansen(service, body) {
         return response;
     }
     catch (err) {
+        logDebug("ERROR Posting to Hansen: " + err)
         return null;
     }
 };
@@ -86,7 +85,7 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     //'", "ContactKey" : "' + Resolution +
                     '", "Resolution" : "' + capStatus + '"}';
 
-logDebug("Preparing to post to Hansen");
-postToHansen(UpdateStatusHansenServiceRequest, jsonOut);
+//logDebug("Preparing to post to Hansen");
+logDebug("Post to Hansen Response: " + postToHansen(UpdateStatusHansenServiceRequest, jsonOut));
 
-logDebug("Posted to Hansen");
+//logDebug("Posted to Hansen");
