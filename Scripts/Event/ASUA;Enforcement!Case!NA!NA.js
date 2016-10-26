@@ -41,6 +41,9 @@ var UriBase = "http://10.16.81.21:804/HansenAccelaServices/";
 var LogTest = "LogTest.svc/LogTest";
 var UpdateStatusHansenServiceRequest = "HansenUpdateStatus.svc/UpdateStatusHansenServiceRequest";
 
+var provider = "Han84";
+var username = "jlloyd";
+var password = 'hansen';
 var contentType = "application/json";
 function postToHansen(service, body) {
     try {
