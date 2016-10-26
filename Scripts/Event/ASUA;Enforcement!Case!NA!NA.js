@@ -80,13 +80,23 @@ function postToHansen(service, body) {
     }
 };
 
+//Get Hansen SR#
+var ReferenceNumber;
+var appSpecInfoResult = aa.appSpecificInfo.getByCapID(capId.getOutput());
+var appspecObj = appSpecInfoResult.getOutput();
+var itemName = "Hansen SR#";
+for (i in appspecObj) {
+    if (appspecObj[i].getCheckboxDesc() == itemName) {
+        ReferenceNumber = appspecObj[i].getChecklistComment();
+        break;
+    }
+}
 
-var ReferenceNumber = capId.getCustomID();
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     //'", "ContactKey" : "' + Resolution +
                     '", "Resolution" : "' + capStatus + '"}';
 
 //logDebug("Preparing to post to Hansen");
-logDebug("Post to Hansen Response: " + postToHansen(UpdateStatusHansenServiceRequest, jsonOut));
+//logDebug("Post to Hansen Response: " + postToHansen(UpdateStatusHansenServiceRequest, jsonOut));
 
 //logDebug("Posted to Hansen");
