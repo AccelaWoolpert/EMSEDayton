@@ -219,8 +219,6 @@ for (inspection in inspectionList) {
 
 // Get Case Status
 //var Resolution = aa.cap.getCapStatus();
-
-var ContactKey = "1001";
 var AddedBy = "LLO01";
 
 
@@ -235,7 +233,6 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     '", "State" : "' + State +
                     '", "Zip" : "' + Zip +
                     '", "RequestType" : "' + RequestType +
-                    '", "ContactKey" : "' + ContactKey +
                     '", "Inspector" : "' + Inspector +
                     '", "Priority" : "' + Priority +
                     '", "InitiatedDateTime" : "' + RequestDate +
