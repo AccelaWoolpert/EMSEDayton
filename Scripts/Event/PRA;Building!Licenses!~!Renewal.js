@@ -1,3 +1,3 @@
-if ( balanceDue <= 0 ){
-	updateLicenseFromRenewal()
-}
+//if ( balanceDue <= 0 ){
+//	updateLicenseFromRenewal()
+//}

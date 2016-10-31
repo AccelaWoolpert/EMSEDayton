@@ -1,3 +1,3 @@
-if ( balanceDue <= 0 ){
-	updateLicenseFromRenewal()
+if (wfTask == "Issue Registration" && wfStatus == "Issued"){
+	updateLicenseFromRenewal();
 }
