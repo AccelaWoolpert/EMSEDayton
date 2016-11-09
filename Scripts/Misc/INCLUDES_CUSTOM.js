@@ -12,5 +12,6 @@
 | Notes   :
 |
 /------------------------------------------------------------------------------------------------------*/
-
+logDebug("Accessing INCLUDES_CUSTOM");
 eval( aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput().getMasterScript(aa.getServiceProviderCode(),"INCLUDES_CUSTOM","ADMIN").getScriptText() + "");
+eval( aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput().getMasterScript(aa.getServiceProviderCode(),"INCLUDES_LICENSES","ADMIN").getScriptText() + "");
