@@ -1,50 +1,16 @@
-/*
+/*------------------------------------------------------------------------------------------------------/
+| Accela Automation
+| Accela, Inc.
+| Copyright (C): 2012
+|
+| Program : INCLUDES_CUSTOM.js
+| Event   : N/A
+|
+| Usage   : Custom Script Include.  Insert custom EMSE Function below and they will be 
+|	    available to all master scripts
+|
+| Notes   :
+|
+/------------------------------------------------------------------------------------------------------*/
 
-custom function declarations go here.   One function per file
-
-*/
- 
- 
- 
- 
-/*
-
-custom function declarations go here.   One function per file
-
-
-function validateRequiredPlanningASI() {
-	var requiredASIbyCaseType = []
-	requiredASIbyCaseType["Planned Development"] = ["Public Hearing Ad Date","City Commission Action"]
-	requiredASIbyCaseType["Area Wide Rezoning"] = ["Public Hearing Ad Date","City Commission Action"]
-	requiredASIbyCaseType["Urban Renewal Plans"] = ["Public Hearing Ad Date","City Commission Action"]
-	// requiredASIbyCaseType["Urban/Strategy/Policy"] = ["City Commission Action"] 			//Case Type doesn't exist........
-	requiredASIbyCaseType["Zoning Code Text Amendment"] = ["Public Hearing Ad Date","City Commission Action"]
-	
-	var thisASIlist = requiredASIbyCaseType[""+AInfo["Case Type"]]
-	if (typeof thisASIlist != "object") return true
-	
-	var reqsNotMet = []
-	switch(""+wfTask) {
-		case "Hearing Scheduled":
-			if (matches(""+wfStatus, "Hearing Scheduled")) {
-				for (i in thisASIlist) {
-					if (matches(AInfo[thisASIlist[i]], null, "")) reqsNotMet.push(thisASIlist[i])
-				}
-			}
-			break;
-		case "Board Hearing":
-			if (matches(""+wfStatus, "Approved with Conditions", "Approved", "Denied")) {
-				for (i in thisASIlist) {
-					if (matches(AInfo[thisASIlist[i]], null, "")) reqsNotMet.push(thisASIlist[i])
-				}
-			}
-			break;
-	}
-	logDebug(reqsNotMet)
-	if (reqsNotMet.length > 0) {
-		showMessage = true
-		logMessage("The Data Field"+ (reqsNotMet.length > 1? "s": "") + " <font color='red'>" + reqsNotMet.join("</font> and <font color='red'>") + "</font> " +(reqsNotMet.length > 1? "are": "is")+" required before updating the Workflow task "+wfTask+" to a status of "+wfStatus)
-		cancel = true
-	}
-}
-*/
+eval( aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput().getMasterScript(aa.getServiceProviderCode(),"INCLUDES_CUSTOM","ADMIN").getScriptText() + "");
