@@ -6,7 +6,7 @@
 | Notes: Developed to allow EMSE scripts to call AA Web Services. Should only be used for operations
 | not supported by AA object methods
 /------------------------------------------------------------------------------------------------------*/
-
+logDebug("Accessing INCLUDES_WEB_SERVICES");
 
 var baseURL = "http://10.111.17.3:3080/av-biz-ws-0.9/services/"
 var wsAgency = "MSP"
