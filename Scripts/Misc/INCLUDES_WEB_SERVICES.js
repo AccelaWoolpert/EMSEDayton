@@ -8,8 +8,8 @@
 /------------------------------------------------------------------------------------------------------*/
 logDebug("Accessing INCLUDES_WEB_SERVICES");
 
-var baseURL = "http://10.111.17.3:3080/av-biz-ws-0.9/services/"
-var wsAgency = "MSP"
+var baseURL = "http://"
+var wsAgency = "DAYTON"
 var wsUser = "admin"
 var wsPass = "admin"
 
