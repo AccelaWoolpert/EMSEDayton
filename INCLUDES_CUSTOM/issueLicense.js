@@ -1,40 +1,38 @@
 function issueLicense() {
 	//SET CONTACT STATE
 	var capContactResult = aa.people.getCapContactByCapID(capId);
-	if (capContactResult.getSuccess()) {
+	if(capContactResult.getSuccess()){
 		var contactList = capContactResult.getOutput();
-		for (i in contactList) {
-			thisContact = contactList[i]
+		for(i in contactList){
+			thisContact = contactList[i];
 			conModel = thisContact.getCapContactModel();
-			conModel.setState("OH")
-			logDebug(aa.people.editContactByCapContact(conModel).getSuccess())
+			conModel.setState("OH");
+			logDebug(aa.people.editContactByCapContact(conModel).getSuccess());
 		}
 	}
 	
-	newLicId = createParent(appTypeArray[0], appTypeArray[1], appTypeArray[2], "License",null)
+	newLicId = createParent(appTypeArray[0], appTypeArray[1], appTypeArray[2], "License",null);
 	if(newLicId){
-		editContactType("Applicant", "License Holder", newLicId)
+		editContactType("Applicant", "License Holder", newLicId);
 		copyOwner(capId, newLicId);
 		updateAppStatus("Issued","Original Issuance",newLicId);
-		updateTask("License","Active","Updated via Script","Updated via Script",null,newLicId)
+		updateTask("License","Active","Updated via Script","Updated via Script",null,newLicId);
 		copyAppSpecific(newLicId);
 		copyASITables(capId,newLicId);
 		
 		jsDate = new Date();
-//		jsDate.setHours(0,0,0,0);
-//		jsDate.setMonth(11);
-//		jsDate.setDate(31)
+		jsDate.setHours(0,0,0,0);
+		jsDate.setMonth(11);
+		jsDate.setDate(31);
 		
-		switch(""+AInfo["Select Number of Years for Registration"]) {
+		switch(""+AInfo["Select Number of Years for Registration"]){
 			case "1 Year":
-				jsDate.setFullYear(jsDate.getFullYear()+1)
+				jsDate.setFullYear(jsDate.getFullYear()+1);
 				break;
 			case "2 Year":
-				jsDate.setFullYear(jsDate.getFullYear()+2)
+				jsDate.setFullYear(jsDate.getFullYear()+2);
 				break;
 		}
-		
-		
 		
 		newLicIdString = newLicId.getCustomID();
 		lic = new licenseObject(newLicIdString,newLicId);
