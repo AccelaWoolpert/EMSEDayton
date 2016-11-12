@@ -219,8 +219,7 @@ for (inspection in inspectionList) {
 
 // Get Case Status
 //var Resolution = aa.cap.getCapStatus();
-var AddedBy = "LLO01";
-
+var AddedBy = Inspector;
 
 if (AddressKey === null) { AddressKey = 0; }
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
