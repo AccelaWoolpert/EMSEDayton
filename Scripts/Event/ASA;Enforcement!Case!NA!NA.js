@@ -201,6 +201,19 @@ for (inspection in inspectionList) {
     }
 }
 
+//Get Added By
+var currentUserID = aa.env.getValue("CurrentUserID");
+var AddedBy = "";
+var bizDomain = "ACCELA_USERNAME_TO_EMPID";
+var bizDomainValue = currentUserID;
+var bizDomScriptResult = aa.bizDomain.getBizDomainByValue(bizDomain, currentUserID);
+aa.print("bizDomScriptResult.getSuccess(): " + bizDomScriptResult.getSuccess())
+if (bizDomScriptResult.getSuccess()) {
+    var bizDomScriptObj = bizDomScriptResult.getOutput();
+    AddedBy = "" + bizDomScriptObj.getDescription(); // had to do this or it bombs.  who knows why?
+    aa.print("AddedBy: " + AddedBy);
+}
+
 // Get Priority
 var cdScriptObjResult = aa.cap.getCapDetail(capId);
 var cdScriptObj = cdScriptObjResult.getOutput();
@@ -219,7 +232,7 @@ for (inspection in inspectionList) {
 
 // Get Case Status
 //var Resolution = aa.cap.getCapStatus();
-var AddedBy = Inspector;
+
 
 if (AddressKey === null) { AddressKey = 0; }
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
