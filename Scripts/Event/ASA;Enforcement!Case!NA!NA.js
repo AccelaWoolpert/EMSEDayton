@@ -50,7 +50,7 @@ var assignedStaff = getAssignedToStaff();
 scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
 
 /*===================================================================*/
-/*
+
 //Developer: James Lloyd
 //Developer Agency: Woolpert
 //Script Description: 
@@ -259,4 +259,3 @@ var hansenSRNo = postToHansen(CreateHansenServiceRequest, jsonOut);
 var hansenSRField = "Hansen SR#";
 var appSpecInfoUpdateResultHansenSRNo = aa.appSpecificInfo.editSingleAppSpecific(capId, hansenSRField, hansenSRNo, null);
 
-*/
