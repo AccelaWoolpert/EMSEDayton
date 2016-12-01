@@ -9,7 +9,7 @@
 
 //Script 6
 if (matches(appTypeArray[1],"Mechanical")) {
-	if (AdditionalInfoValuation <= 0 ){
+	if (AInfo["Job Cost"] <= 0 ){
 		showMessage = true
 		cancel = true
 		logMessage("Must have a Job Cost greater than zero.")
