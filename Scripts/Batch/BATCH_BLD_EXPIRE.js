@@ -46,7 +46,7 @@ eval(""+emseBiz.getScriptByPK(servProvCode,"INCLUDES_CUSTOM","ADMIN").getScriptT
 | END: USER CONFIGURABLE PARAMETERS
 |
 /------------------------------------------------------------------------------------------------------*/
-showDebug = true//aa.env.getValue("showDebug").substring(0,1).toUpperCase().equals("Y");
+var showDebug = true//aa.env.getValue("showDebug").substring(0,1).toUpperCase().equals("Y");
 
 sysDate = aa.date.getCurrentDate();
 batchJobResult = aa.batchJob.getJobID()
