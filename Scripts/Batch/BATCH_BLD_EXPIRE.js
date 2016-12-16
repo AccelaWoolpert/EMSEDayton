@@ -184,5 +184,5 @@ function mainProcess() {
 			}
 		}
 	}
-	logDebug(count + " Records updated by the batch script.")
+	logDebug(br + count + " Records updated by the batch script.")
 }
