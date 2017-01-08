@@ -22,8 +22,6 @@ function issueLicense() {
 		
 		jsDate = new Date();
 		jsDate.setHours(0,0,0,0);
-		jsDate.setMonth(11);
-		jsDate.setDate(31);
 		
 		switch(""+AInfo["Select Number of Years for Registration"]){
 			case "1 Year":
@@ -43,6 +41,9 @@ function issueLicense() {
 				}
 				break;
 		}
+		
+		jsDate.setMonth(11);
+		jsDate.setDate(31);
 		
 		newLicIdString = newLicId.getCustomID();
 		lic = new licenseObject(newLicIdString,newLicId);
