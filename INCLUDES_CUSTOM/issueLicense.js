@@ -27,10 +27,20 @@ function issueLicense() {
 		
 		switch(""+AInfo["Select Number of Years for Registration"]){
 			case "1 Year":
-				jsDate.setFullYear(jsDate.getFullYear()+1);
+				if(jsDate.getMonth() == 11){
+					jsDate.setFullYear(jsDate.getFullYear()+1);
+				}
+				else{
+					jsDate.setFullYear(jsDate.getFullYear());
+				}
 				break;
 			case "2 Year":
-				jsDate.setFullYear(jsDate.getFullYear()+2);
+				if(jsDate.getMonth() == 11){
+					jsDate.setFullYear(jsDate.getFullYear()+2);
+				}
+				else{
+					jsDate.setFullYear(jsDate.getFullYear()+1);
+				}
 				break;
 		}
 		
