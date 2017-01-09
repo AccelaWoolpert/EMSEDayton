@@ -21,5 +21,6 @@ if (matches((""+capStatus).toUpperCase(), "WITHDRAW", "WITHDRAWN", "WITHDRAWAL",
 
 //Script 56
 if(matches(wfTask,"Permit Issuance") && matches(wfStatus,"Issued")){
+	editAppSpecific("Issued Date",dateAdd(null,0));
 	editAppSpecific("Permit Expiration Date",dateAdd(null,365));
 }
