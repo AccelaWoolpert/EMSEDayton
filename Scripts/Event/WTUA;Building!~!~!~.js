@@ -18,3 +18,8 @@ if (matches((""+capStatus).toUpperCase(), "FINAL", "FINALED", "CLOSE", "CLOSED" 
 if (matches((""+capStatus).toUpperCase(), "WITHDRAW", "WITHDRAWN", "WITHDRAWAL", "CANCEL", "CANCELED", "EXPIRE", "EXPIRED" )) {
 	addStdCondition("Finalled Permit","Permit Read Only")
 }
+
+//Script 56
+if(matches(wfTask,"Permit Issuance") && matches(wfStatus,"Issued")){
+	editAppSpecific("Permit Expiration Date",dateAdd(null,365));
+}
