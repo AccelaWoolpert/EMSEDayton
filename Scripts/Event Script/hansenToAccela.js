@@ -70,7 +70,7 @@ var Zip;
 if (capAddResult.getSuccess()) {
     var Adds = capAddResult.getOutput();
     for (zz in Adds) {
-        //AddressKey = Adds[zz].getRefAddressId();
+        AddressKey = Adds[zz].getRefAddressId();
         PreDirection = Adds[zz].getStreetDirection();
         StreetNumber = Adds[zz].getHouseNumberStart();
         StreetName = Adds[zz].getStreetName();
