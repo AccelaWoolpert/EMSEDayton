@@ -44,70 +44,21 @@ function issueLicense() {
 		
 		jsDate.setMonth(11);
 		jsDate.setDate(31);
-		
-		var idNum = 1; logDebug("-----"+idNum+"-----");
-		
 		newLicIdString = newLicId.getCustomID();
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		lic = new licenseObject(newLicIdString,newLicId);
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		lic.setStatus("Active");
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		lic.setExpiration(jsDateToASIDate(jsDate));
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		saveId = capId;
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		capId = newLicId;
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		AInfo["Business License #"] = newLicIdString;
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		createRefLicProf(newLicIdString,"Contractor","License Holder");
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		capId = saveId;
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
-		
 		refLP = getRefLicenseProf(newLicIdString);
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		refLP.setLicenseExpirationDate(aa.date.parseDate(jsDateToASIDate(jsDate)));
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		refLP.setLicenseIssueDate(aa.date.getCurrentDate());
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		refLP.setBusinessName2("Issued");
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
 		aa.licenseScript.editRefLicenseProf(refLP);
-		
-		idNum++; logDebug("-----"+idNum+"-----");
-		
-		
 		aa.licenseScript.associateLpWithCap(newLicId,refLP);
-		
-		idNum++; logDebug("-----"+idNum+"-----");
 		
 	}
 }
