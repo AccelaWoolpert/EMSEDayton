@@ -54,6 +54,55 @@ var assignedStaff = getAssignedToStaff();
 scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
 
 
+/**********************************************************************
+populate transactional address attributes from reference
+
+*/
+
+	refId = null;
+	var addResult = aa.address.getAddressByCapId(capId);
+	if (addResult.getSuccess()) {
+		var addArray = addResult.getOutput();
+		if (addArray) {
+			firstAddress = addArray[0];
+			refId = firstAddress.getRefAddressId();
+			transID = firstAddress.getAddressId();
+			logDebug("Ref address id = " + refId + " transaction id = " + transID);
+
+		}
+	}		
+	if (refId != null) {
+		refAddrResult = aa.address.getRefAddressByPK(String(refId));
+		if (refAddrResult.getSuccess()) {
+			refAddr = refAddrResult.getOutput();
+			refAddressModel = refAddr.getRefAddressModel();
+			refAttrs = refAddressModel.getAttributes();
+			transAttrs = firstAddress.getAttributes();
+			if(refAttrs != null){
+				var refAttrsArr = refAttrs.toArray();
+				for( var tIndex in refAttrsArr) {
+					refAttribute = refAttrsArr[tIndex];
+                                        if (refAttribute.getAttributeValue() && refAttribute.getAttributeValue() != "") {
+                                            editAppSpecific(refAttribute.getAttributeLabel(), "" + refAttribute.getAttributeValue());
+					    transAttrIter = transAttrs.iterator();
+					    while (transAttrIter.hasNext()) {
+					    	transAttribute = transAttrIter.next();
+						if (transAttribute.getB1AttributeName() == refAttribute.getAttributeName()) {
+							transAttribute.setB1AttributeValue(refAttribute.getAttributeValue());
+						}
+                                            }
+					}
+				}
+
+				var addrBiz = aa.proxyInvoker.newInstance("com.accela.aa.aamain.address.AddressBusiness").getOutput();
+				if (addrBiz != null) {
+					addrBiz.editAddressWithAPOAttribute(capId, firstAddress, transAttrs);
+				}
+			}
+		}
+	}	
+
+
 /*===================================================================*/
 //ID: 
 //Name: 
@@ -62,5 +111,5 @@ scheduleInspectDate("Complaint",dateAdd(null,numDays),assignedStaff);
 //Script Description: 
 /*===================================================================*/
 include("hansenToAccela");
-
+//include("H_CASE_ACCELA_CASES_TO_HANSEN");
 
