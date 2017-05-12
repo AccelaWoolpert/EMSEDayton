@@ -1,1 +1,2 @@
-include("convertRenewalToReal");
+include("INCLUDES_LICENSES");
+convertRenewalToReal();
