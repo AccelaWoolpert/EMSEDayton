@@ -1,1 +1,1 @@
-include("prepareAppForRenewal");
+prepareAppForRenewal();
