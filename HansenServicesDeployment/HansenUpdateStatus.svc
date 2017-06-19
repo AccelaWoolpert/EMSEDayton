@@ -1,1 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="HansenAccelaServices.HansenUpdateStatus" CodeBehind="HansenUpdateStatus.svc.cs" %>
