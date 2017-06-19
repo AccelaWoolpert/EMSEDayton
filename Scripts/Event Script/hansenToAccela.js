@@ -15,8 +15,8 @@ var LogTest = "LogTest.svc/LogTest";
 var CreateHansenServiceRequest = "HansenServiceRequestCreate.svc/CreateHansenServiceRequest";
 
 var provider = "Han84";
-var username = "jlloyd";
-var password = 'hansen';
+var username = "jlloyd"; //update for DEV and PROD
+var password = 'hansen'; //update for DEV and PROD
 var contentType = "application/json";
 
 
