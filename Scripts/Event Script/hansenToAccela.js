@@ -58,7 +58,7 @@ var ReferenceNumber = capId.getCustomID();
 
 //Address Key
 var capAddResult = aa.address.getAddressByCapId(capId);
-var AddressKey;
+var AddressKey = "";
 var StreetNumber;
 var PreDirection;
 var StreetName;
@@ -70,7 +70,7 @@ var Zip;
 if (capAddResult.getSuccess()) {
     var Adds = capAddResult.getOutput();
     for (zz in Adds) {
-        AddressKey = Adds[zz].getRefAddressId();
+        refId = Adds[zz].getRefAddressId();
         PreDirection = Adds[zz].getStreetDirection();
         StreetNumber = Adds[zz].getHouseNumberStart();
         StreetName = Adds[zz].getStreetName();
@@ -81,20 +81,40 @@ if (capAddResult.getSuccess()) {
     }
 };
 
-var fcapAddressObj;
-var capAddressResult = aa.address.getAddressWithAttributeByCapId(capId);
-if (capAddressResult.getSuccess()) {
-    fcapAddressObj = capAddressResult.getOutput();
-}
+if (refId != null) {
+	refAddrResult = aa.address.getRefAddressByPK(String(refId));
+	if (refAddrResult.getSuccess()) {
+		refAddr = refAddrResult.getOutput();
+		refAddressModel = refAddr.getRefAddressModel();
+		var tmpAttrs = refAddressModel.getAttributes();
+		if(tmpAttrs != null){
+			var tmpAttrsArr = tmpAttrs.toArray();
+			for( var tIndex in tmpAttrsArr) {
+				thisAttribute = tmpAttrsArr[tIndex];
+				if (thisAttribute.getAttributeName().toUpperCase() == "ADDRKEY")
+					AddressKey = "" + thisAttribute.getAttributeValue();
+			}
+		}
 
-for (i in fcapAddressObj) {
-    var addressAttrObj = fcapAddressObj[i].getAttributes().toArray();
-    for (z in addressAttrObj) {
-        if (addressAttrObj[z].getB1AttributeName() == "ADDRKEY") {
-            AddressKey = addressAttrObj[z].getB1AttributeValue();
-        };
-    };
-};
+	}
+}
+	
+
+//var fcapAddressObj;
+//var capAddressResult = aa.address.getAddressWithAttributeByCapId(capId);
+//if (capAddressResult.getSuccess()) {
+//    fcapAddressObj = capAddressResult.getOutput();
+//}
+
+//for (i in fcapAddressObj) {
+//    var addressAttrObj = fcapAddressObj[i].getAttributes().toArray();
+//    for (z in addressAttrObj) {
+//        if (addressAttrObj[z].getB1AttributeName() == "ADDRKEY") {
+//            AddressKey = addressAttrObj[z].getB1AttributeValue();
+//        };
+//    };
+//};
+
 
 //Complaint 3 - Request Type
 var RequestType;
@@ -180,7 +200,7 @@ var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
                     '", "Resolution" : "' + capStatus +
                     '", "AddedBy" : "' + AddedBy + '"}';
 
-
+aa.print(jsonOut);
 var hansenSRNo = postToHansen(CreateHansenServiceRequest, jsonOut);
 //var hansenSRNo = postToHansen(LogTest, jsonOut);
 
