@@ -4,24 +4,9 @@
 
 //Developer: James Lloyd
 //Developer Agency: Woolpert
-//Script Description: 
-//showMessage = true;//sets global to display the message as a pop-up
-//message("Case Updated...");//the message you want to display
-//cancel = true;//cancels the action
-
-
-//function getScriptText(vScriptName) {
-//    vScriptName = vScriptName.toUpperCase();
-//    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-//    var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
-//    return emseScript.getScriptText() + "";
-//}
-////****************************************************************
-////  Accela Script include
-////****************************************************************
-//eval(getScriptText("INCLUDES_CUSTOM"));
-//eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
-
+//Script Description: Passes new Status and Status comments to Hansen via custom web api
+// Revision Date: 2017/03/23
+//
 
 //Global settings...
 var showMessage = false;                        // Set to true to see results in popup window
@@ -38,8 +23,8 @@ var LogTest = "LogTest.svc/LogTest";
 var UpdateStatusHansenServiceRequest = "HansenUpdateStatus.svc/UpdateStatusHansenServiceRequest";
 
 var provider = "Han84";
-var username = "jlloyd";
-var password = 'hansen';
+var username = "accela";
+var password = 'accela';
 var contentType = "application/json";
 function postToHansen(service, body) {
     try {
@@ -87,12 +72,65 @@ for (i in appspecObj) {
         break;
     }
 }
+var statusComments = getMostRecentAppComment();
+var inspComments = getMostRecentInspectionResultComment();
+sendComment = statusComments + inspComments;
 
 var jsonOut = '{ "ReferenceNumber" : "' + ReferenceNumber +
-                    //'", "ContactKey" : "' + Resolution +
+                    '", "RequestComments" : "' + sendComment +
                     '", "Resolution" : "' + capStatus + '"}';
 
 
 
 postToHansen(UpdateStatusHansenServiceRequest, jsonOut);
+
+
+function getMostRecentAppComment() { // optional statusees to exclude
+
+    statusResult = aa.cap.getStatusHistoryByCap(capId, "APPLICATION", null);
+    if (statusResult.getSuccess()) {
+        statusArr = statusResult.getOutput();
+        if (statusArr && statusArr.length > 0) {
+            for (xx in statusArr) {
+                var thisStatus = statusArr[xx];
+                if (thisStatus.getStatusComment() != null) { return thisStatus.getStatusComment(); }
+            }
+        }
+    }
+    else {
+        aa.print("Error getting application status history " + statusResult.getErrorMessage());
+    }
+return "";
+}
+
+function getMostRecentInspectionResultComment() {
+	itemCapId = capId;
+	if (arguments.length > 0) itemCapId = arguments[0];
+	var inspResult = aa.inspection.getInspections(itemCapId);
+	if (inspResult.getSuccess()) {
+		inspList = inspResult.getOutput();
+		if (inspList != null) {
+			inspDate = inspList[0].getInspectionDate();
+			inspList.sort(compareInspCompletedDate);
+			mostRecentInsp = inspList[0];
+			inspModel = mostRecentInsp.getInspection();
+			comment = inspModel.getResultComment();
+			return comment;
+		}
+	}
+	return "";
+}
+
+function compareInspCompletedDate(a, b) {
+		if (a.getInspectionDate() == null && b.getInspectionDate() == null) {
+			return -1;
+		}
+		if (a.getInspectionDate() == null && b.getInspectionDate() != null) {
+			return 1;
+		}
+		if (a.getInspectionDate() != null && b.getInspectionDate() == null) {
+			return -1;
+		}
+		return (b.getInspectionDate().getEpochMilliseconds() - a.getInspectionDate().getEpochMilliseconds());
+}
 
