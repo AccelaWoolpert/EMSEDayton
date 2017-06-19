@@ -169,7 +169,7 @@ function mainProcess() {
 		approveDate = "null"
 		
 		if (""+taskStatus("Application Submittal") != "Accepted") continue
-		approveDate = ""+taskStatusDate("Application Submittal")
+		var approveDate = ""+taskStatusDate("Application Submittal")
 		approveDateJS = (approveDate == "null") ? null : new Date(approveDate)
 		
 		//logDebug(br + altId + " - AppDate: "+approveDate+" expDate: "+today)

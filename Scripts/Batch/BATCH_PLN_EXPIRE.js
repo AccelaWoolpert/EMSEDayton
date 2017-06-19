@@ -163,7 +163,7 @@ function mainProcess() {
 		
 		wDate = (""+getWorkflowStatusDate(wTask, wStatus)).slice(0,10).replace(/-/g,"/")
 		if (wDate == "null") continue
-		wDatejs = new Date(wDate)
+		var wDatejs = new Date(wDate);
 
 		if (today > wDatejs) {
 			logDebug(br +"Expiring record: " + altId)

@@ -143,7 +143,9 @@ function mainProcess() {
 		tmpCapObj = aa.cap.getCap(capId)
 		altId = tmpCapObj.getSuccess() ? tmpCapObj.getOutput().getCapModel().getAltID() : null
 		
-		if (!appMatch(appType,capId)) continue
+		if(!appMatch(appType,capId)){
+			continue
+		}
 		
 		logDebug(br + "Expiring record: " + altId)
 		updateAppStatus(newStatus, "Set by Script")
